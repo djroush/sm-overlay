@@ -1,5 +1,5 @@
 import { createCanvas, loadImage } from 'canvas';
-import { takeLatest, put, all, call } from 'redux-saga/effects';
+import { takeLatest, put, call } from 'redux-saga/effects';
 
 const trimEqualsRegExp = new RegExp("=*$");
 

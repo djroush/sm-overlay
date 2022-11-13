@@ -1,7 +1,5 @@
-import { Canvas, CanvasRenderingContext2D, createCanvas } from 'canvas';
+import { CanvasRenderingContext2D, createCanvas } from 'canvas';
 import { takeLatest, put, select } from 'redux-saga/effects';
-import { modeOptions, areaOptions, difficultyOptions, startOptions, morphOptions, escapeOptions, bossesOptions } from '../model/SliderValues';
-import { SettingsState } from '../redux/state/SettingsState';
 import { RootState } from '../redux/state/RootState';
 import { PlayersState } from '../redux/state/PlayersState';
 
@@ -15,7 +13,7 @@ function* drawPlayers(names: PlayersState) {
     //Draw Names
     context.textAlign = 'center'
     context.font = '28px sans-serif'
-    context.fillStyle = '#F9E1F4';
+    context.fillStyle = '#FDF3FB';
     context.fillText(player1, 190, 69, 300);
     context.fillText(player2, 925, 69, 300);
 

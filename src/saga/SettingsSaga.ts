@@ -14,7 +14,7 @@ function* drawSettings(settings: SettingsState) {
     //Draw Settings
     context.textAlign = 'center'
     context.font = 'bold 20px sans-serif'
-    context.fillStyle = '#F9E1F4';
+    context.fillStyle = '#FDF3FB';
     context.fillText(`SETTINGS`, 644, 180, 220);
 
     context.textAlign = 'left'
