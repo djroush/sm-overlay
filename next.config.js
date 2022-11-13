@@ -9,7 +9,7 @@ if (isGithubActions) {
   //const repo = process.env.GITHUB_REPOSITORY.replace(/.*?\//, '')
 
   //assetPrefix = `/${repo}/`;
-  assetPrefix = '/sm-overlay-generator/'
+  assetPrefix = '/sm-overlay/'
 }
 
 const nextConfig = {

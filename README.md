@@ -1,4 +1,4 @@
-# sm-overlay-generator
+# sm-overlay
 This project is used to create overlays for Super Metroid races
 
 ## Getting Started
