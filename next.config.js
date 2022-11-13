@@ -6,10 +6,8 @@ let assetPrefix = '/'
 
 if (isGithubActions) {
   // trim off `<owner>/`
-  //const repo = process.env.GITHUB_REPOSITORY.replace(/.*?\//, '')
-
-  //assetPrefix = `/${repo}/`;
-  assetPrefix = '/sm-overlay/'
+  const repo = process.env.GITHUB_REPOSITORY.replace(/.*?\//, '')
+  assetPrefix = `/${repo}/`;
 }
 
 const nextConfig = {
