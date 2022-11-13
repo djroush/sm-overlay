@@ -2,15 +2,14 @@
 
 const isGithubActions = process.env.GITHUB_ACTIONS || false
 
-let assetPrefix = ''
-let basePath = ''
+let assetPrefix = '/'
 
 if (isGithubActions) {
   // trim off `<owner>/`
-  const repo = process.env.GITHUB_REPOSITORY.replace(/.*?\//, '')
+  //const repo = process.env.GITHUB_REPOSITORY.replace(/.*?\//, '')
 
-  assetPrefix = `/${repo}/`;
-  basePath = `/${repo}`;
+  //assetPrefix = `/${repo}/`;
+  assetPrefix = '/sm-overlay-generator/'
 }
 
 const nextConfig = {
@@ -21,9 +20,8 @@ const nextConfig = {
   },
   reactStrictMode: false,
   swcMinify: true,
-  
-  assetPrefix,
-  basePath
+
+  assetPrefix: assetPrefix,
 }
 
 module.exports = nextConfig
