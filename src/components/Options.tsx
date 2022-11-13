@@ -4,30 +4,30 @@ import { OptionsState } from '../redux/state/OptionsState';
 import LabeledCheckbox from './LabeledCheckbox';
 
 export type OptionsProps = OptionsState & {
-    changeHideNames: (_: React.SyntheticEvent, checked: boolean) => void,
-    changeHideLogo: (_: React.SyntheticEvent, checked: boolean) => void,
-    changeHideSettings: (_: React.SyntheticEvent, checked: boolean) => void,
+    changeShowPlayers: (_: React.SyntheticEvent, checked: boolean) => void,
+    changeShowLogo: (_: React.SyntheticEvent, checked: boolean) => void,
+    changeShowSettings: (_: React.SyntheticEvent, checked: boolean) => void,
     changeShowTracker: (_: React.SyntheticEvent, checked: boolean) => void,
     changeShowAvatar: (_: React.SyntheticEvent, checked: boolean) => void,
     changeShowWins: (_: React.SyntheticEvent, checked: boolean) => void,
 }
 
 export default function Options(props: OptionsProps) {
-    const { hideNames, hideLogo, hideSettings, showTracker, showAvatar, showWins, 
-        changeHideNames, changeHideLogo, changeHideSettings, changeShowTracker,
+    const { showPlayers, showLogo, showSettings, showTracker, showAvatar, showWins, 
+        changeShowPlayers, changeShowLogo, changeShowSettings, changeShowTracker,
         changeShowAvatar, changeShowWins } = props
 
     return (
         <Stack>
             <Grid container spacing={1}>
                 <Grid item xs={4}>
-                    <LabeledCheckbox label='Hide&nbsp;Names' value={hideNames ?? false} onChange={changeHideNames} />
+                    <LabeledCheckbox label='Show&nbsp;Players' value={showPlayers ?? false} onChange={changeShowPlayers} />
                 </Grid>
                 <Grid item xs={4}>
-                    <LabeledCheckbox label='Hide&nbsp;Logo' value={hideLogo ?? false} onChange={changeHideLogo} />
+                    <LabeledCheckbox label='Show&nbsp;Logo' value={showLogo ?? false} onChange={changeShowLogo} />
                 </Grid>
                 <Grid item xs={4}>
-                    <LabeledCheckbox label='Hide&nbsp;Settings' value={hideSettings ?? false} onChange={changeHideSettings} />
+                    <LabeledCheckbox label='Show&nbsp;Settings' value={showSettings ?? false} onChange={changeShowSettings} />
                 </Grid>
             </Grid >
             <Grid container spacing={1}>

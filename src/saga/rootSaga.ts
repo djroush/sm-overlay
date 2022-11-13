@@ -1,9 +1,13 @@
 import { spawn } from 'redux-saga/effects'
-import watchInformation from './Information';
-import watchTheme from './Theme';
+import watchLogo from './LogoSaga';
+import watchTheme from './ThemeSaga';
+import watchPlayers from './PlayersSaga';
+import watchSettings from './SettingsSaga';
 
 export default function* rootSaga() {
     yield spawn(watchTheme);
-    yield spawn(watchInformation);
+    yield spawn(watchSettings);
+    yield spawn(watchPlayers);
+    yield spawn(watchLogo);
 }
 

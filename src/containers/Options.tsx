@@ -1,39 +1,34 @@
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import OptionsComp, { OptionsProps } from '../components/Options'
 import { RootState } from '../redux/state/RootState';
 
 export default function Options() {
-    const { hideNames, hideLogo, hideSettings, showWins, showAvatar, showTracker } = useSelector((state: RootState) => state.options)
+    const { showPlayers, showLogo, showSettings, showWins, showAvatar, showTracker } = useSelector((state: RootState) => state.options)
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch({ type: 'INFO/watchInformation' })
-    }, [hideNames, hideLogo, hideSettings, showWins, showAvatar, showTracker]);
-
-    const changeHideNames = (_: React.SyntheticEvent, checked: boolean) => {
-        dispatch({ layer: 'REACT', type: 'OPTIONS/change-hideNames', value: checked })
+    const changeShowPlayers = (_: React.SyntheticEvent, checked: boolean) => {
+        dispatch({type: 'OPTIONS/change-showPlayers', value: checked })
     }
-    const changeHideLogo = (_: React.SyntheticEvent, checked: boolean) => {
-        dispatch({ layer: 'REACT', type: 'OPTIONS/change-hideLogo', value: checked })
+    const changeShowLogo = (_: React.SyntheticEvent, checked: boolean) => {
+        dispatch({type: 'OPTIONS/change-showLogo', value: checked })
     }
-    const changeHideSettings = (_: React.SyntheticEvent, checked: boolean) => {
-        dispatch({ layer: 'REACT', type: 'OPTIONS/change-hideSettings', value: checked })
+    const changeShowSettings = (_: React.SyntheticEvent, checked: boolean) => {
+        dispatch({type: 'OPTIONS/change-showSettings', value: checked })
     }
 
     const changeShowTracker = (_: React.SyntheticEvent, checked: boolean) => {
-        dispatch({ layer: 'REACT', type: 'OPTIONS/change-showTracker', value: checked })
+        dispatch({type: 'OPTIONS/change-showTracker', value: checked })
     }
     const changeShowAvatar = (_: React.SyntheticEvent, checked: boolean) => {
-        dispatch({ layer: 'REACT', type: 'OPTIONS/change-showAvatar', value: checked })
+        dispatch({type: 'OPTIONS/change-showAvatar', value: checked })
     }
     const changeShowWins = (_: React.SyntheticEvent, checked: boolean) => {
-        dispatch({ layer: 'REACT', type: 'OPTIONS/change-showWins', value: checked })
+        dispatch({type: 'OPTIONS/change-showWins', value: checked })
     }
 
     const props: OptionsProps = {
-        hideNames, hideLogo, hideSettings, showWins, showAvatar, showTracker,
-        changeHideNames, changeHideLogo, changeHideSettings, changeShowTracker,
+        showPlayers, showLogo, showSettings, showWins, showAvatar, showTracker,
+        changeShowPlayers: changeShowPlayers, changeShowLogo, changeShowSettings, changeShowTracker,
         changeShowAvatar, changeShowWins
     }
 

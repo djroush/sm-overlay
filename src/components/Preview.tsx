@@ -3,23 +3,21 @@ import { Box, Button, Stack } from '@mui/material';
 import { styled } from '@mui/system';
 import { PreviewState } from '../redux/state/PreviewState';
 import Canvas from '../containers/Canvas';
+import { OptionsState } from '../redux/state/OptionsState';
 
-export type PreviewProps = PreviewState & {
-    showTracker: boolean,
-    showAvatar: boolean,
-    showWins: boolean,
+export type PreviewProps = PreviewState & OptionsState & {
     downloadOverlay: () => void
 }
 
 export default function PreviewComp(props: PreviewProps) {
     const {
-        background, streams, names, timers, trackers, avatars, wins, information, 
-        showTracker, showAvatar, showWins, downloadOverlay
+        background, logo, streams, names, timers, trackers, avatars, wins, players, settings, 
+        showPlayers, showLogo, showSettings, showTracker, showAvatar, showWins, downloadOverlay
     } = props
 
 
     const CanvasLayer = styled(Box)({
-        position: 'absolute', top: 0
+        position: 'absolute', top: 16
     })
 
     return (
@@ -52,9 +50,21 @@ export default function PreviewComp(props: PreviewProps) {
                         <Canvas id="wins" data={wins} />
                     </CanvasLayer>
                 )}
+                {showPlayers && (
                 <CanvasLayer component="div" zIndex={507}>
-                    <Canvas id="information" data={information} />
+                    <Canvas id="players" data={players} />
                 </CanvasLayer>
+                )}
+                {showLogo && (
+                <CanvasLayer component="div" zIndex={508}>
+                    <Canvas id="logo" data={logo} />
+                </CanvasLayer>
+                )}
+                {showSettings && (
+                <CanvasLayer component="div" zIndex={509}>
+                    <Canvas id="settings" data={settings} />
+                </CanvasLayer>
+                )}
             </Box>
             <Box>
                 <Button variant="outlined" color="primary" onClick={downloadOverlay}>Download</Button>

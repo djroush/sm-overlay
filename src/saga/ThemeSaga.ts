@@ -15,7 +15,7 @@ function* loadLayer (theme: string, layer: string) {
     const layerData = canvas.toDataURL();
     const trimmedData = layerData.replace(trimEqualsRegExp, "");
     context.clearRect(0, 0, 1280, 720)
-    yield put({ layer: 'REACT', type: `PREVIEW/persist-${layer}`, value: trimmedData })
+    yield put({type: `PREVIEW/persist-${layer}`, value: trimmedData })
 }
 
 export function* workerTheme(action: any) {
@@ -32,5 +32,5 @@ export function* workerTheme(action: any) {
 }
 
 export default function* watchTheme() {
-    yield takeLatest('THEME/fetchRequest', workerTheme);
+    yield takeLatest('THEME/fetch-theme', workerTheme);
 }

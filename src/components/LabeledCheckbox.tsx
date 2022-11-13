@@ -1,20 +1,20 @@
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+import Checkbox, { CheckboxProps } from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 
-export type LabeledCheckboxProps = {
+export type LabeledCheckboxProps = CheckboxProps & {
   label: string,
   value: boolean,
   onChange: (event: React.SyntheticEvent, checked: boolean) => void
 }
 
 export default function LabeledCheckbox(props: LabeledCheckboxProps) {
-  const { label, value, onChange } = { ...props }
+  const { disabled, label, value, onChange } = { ...props }
   return (
     <Box px={4}>
       <FormGroup>
-        <FormControlLabel labelPlacement="start" control={<Checkbox checked={value}/>} label={label} onChange={onChange} />
+        <FormControlLabel labelPlacement="start" control={<Checkbox disabled={disabled??false} checked={value}/>} label={label} onChange={onChange} />
       </FormGroup>
     </Box>
   );

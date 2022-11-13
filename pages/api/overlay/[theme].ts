@@ -32,9 +32,9 @@ export default function handler(
 const validOptions = ['true','false'];
 function validateQueryParams(query: ParsedUrlQuery): string[] {
   const {theme, mode, area, difficulty, start, morph, bosses, escape,
-    hideNames, hideLogo, hideSettings, showTracker, showAvatar, showWins} = query
+    showPlayers, showLogo, showSettings, showTracker, showAvatar, showWins} = query
   const errors: string[] = []
-  const options = [hideNames, hideLogo, hideSettings, showTracker, showAvatar, showWins];
+  const options = [showPlayers, showLogo, showSettings, showTracker, showAvatar, showWins];
 
   if (!('theme' in query) || !themeOptions.includes(upper(theme))) {
     errors.push('theme is required, valid options are (' + themeOptions.join(',') + ')');
