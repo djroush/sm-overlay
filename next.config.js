@@ -21,7 +21,7 @@ const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
 
-  assetPrefix: assetPrefix,
+  assetPrefix: assetPrefix
 }
 
 module.exports = nextConfig
