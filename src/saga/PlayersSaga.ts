@@ -1,7 +1,9 @@
 import { CanvasRenderingContext2D, createCanvas } from 'canvas';
-import { takeLatest, put, select } from 'redux-saga/effects';
+import { put, select, throttle } from 'redux-saga/effects';
 import { RootState } from '../redux/state/RootState';
 import { PlayersState } from '../redux/state/PlayersState';
+import { Color } from '@mui/material';
+import internal from 'stream';
 
 const trimEqualsRegExp = new RegExp("=*$");
 
@@ -14,8 +16,8 @@ function* drawPlayers(names: PlayersState) {
     context.textAlign = 'center'
     context.font = '28px sans-serif'
     context.fillStyle = '#FDF3FB';
-    context.fillText(player1, 190, 69, 300);
-    context.fillText(player2, 925, 69, 300);
+    yield outlineText(context, player1, 190, 69, 300);
+    yield outlineText(context, player2, 925, 69, 300);
 
     // // creating an image can end the data URL with trailing equal signs.  these cause
     // // issues when using redrawing later, so remove them before persisting to redux
@@ -25,11 +27,26 @@ function* drawPlayers(names: PlayersState) {
     yield put({ type: 'PREVIEW/persist-players', value: playersData })
 }
 
+export function* outlineText(context: CanvasRenderingContext2D, text: string, x: number, y: number, size: number) {
+    const oldFillStyle = context.fillStyle;
+    context.fillStyle = 'black';
+    context.fillText(text, x-1, y-1, size);
+    context.fillText(text, x-1, y, size);
+    context.fillText(text, x-1, y+1, size);
+    context.fillText(text, x, y+1, size);
+    context.fillText(text, x+1, y+1, size);
+    context.fillText(text, x+1, y, size);
+    context.fillText(text, x+1, y-1, size);
+    context.fillText(text, x, y-1, size);
+    context.fillStyle = oldFillStyle;
+    context.fillText(text, x, y, size);
+}
+
 export function* workerPlayers() {
     const { names } = yield select((state: RootState) => state)
     yield drawPlayers(names)
 }
 
 export default function* watchPlayers() {
-    yield takeLatest('PLAYERS/update-players', workerPlayers);
+    yield throttle(300, 'PLAYERS/update-players', workerPlayers);
 }
