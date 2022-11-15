@@ -33,11 +33,11 @@ export function* outlineText(context: CanvasRenderingContext2D, text: string, x:
     context.fillText(text, x-1, y-1, size);
     context.fillText(text, x-1, y, size);
     context.fillText(text, x-1, y+1, size);
-    context.fillText(text, x, y+1, size);
+    context.fillText(text, x,   y+1, size);
     context.fillText(text, x+1, y+1, size);
     context.fillText(text, x+1, y, size);
     context.fillText(text, x+1, y-1, size);
-    context.fillText(text, x, y-1, size);
+    context.fillText(text, x,   y-1, size);
     context.fillStyle = oldFillStyle;
     context.fillText(text, x, y, size);
 }

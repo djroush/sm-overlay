@@ -1,5 +1,5 @@
 # sm-overlay
-This project is used to create overlays for Super Metroid races
+This project is used to create overlays for Super Metroid races.  The tool is deployed here: [https://djroush.github.io/sm-overlay/](https://djroush.github.io/sm-overlay/)
 
 ## Getting Started
 
