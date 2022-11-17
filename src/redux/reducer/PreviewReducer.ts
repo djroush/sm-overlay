@@ -21,7 +21,7 @@ export const previewReducer = (state = defaultPreviewState, action: any) => {
     return {...state, players: action.value}
   } else if (action.type === 'PREVIEW/persist-settings') {
     return {...state, settings: action.value}
-  } 
+  }
 
   return state;
 };

@@ -11,7 +11,7 @@ function* drawPlayers(names: PlayersState) {
     context.textAlign = 'center'
     context.font = '28px sans-serif'
     context.fillStyle = '#FDF3FB';
-    context.lineWidth = 3;
+    context.lineWidth = 2;
     context.strokeStyle = 'black'
 
     //Draw Names

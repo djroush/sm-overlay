@@ -15,7 +15,7 @@ function* drawSettings(settings: SettingsState) {
     //Draw Settings
     context.font = '16px sans-serif'
     context.fillStyle = '#FDF3FB';
-    context.lineWidth = 3;
+    context.lineWidth = 2;
     context.strokeStyle = 'black'
 
     const themeValue = themeOptions[theme-1]

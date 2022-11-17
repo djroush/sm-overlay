@@ -11,7 +11,7 @@ export type PreviewProps = PreviewState & OptionsState & {
 
 export default function PreviewComp(props: PreviewProps) {
     const {
-        background, logo, streams, names, timers, trackers, avatars, wins, players, settings, 
+        background, logo, streams, names, timers, trackers, avatars, wins, players, settings,
         showPlayers, showLogo, showSettings, showTracker, showAvatar, showWins, downloadOverlay
     } = props
 
@@ -21,8 +21,8 @@ export default function PreviewComp(props: PreviewProps) {
     })
 
     return (
-        <Stack direction="column" spacing={1}>
-            <Box height={720} maxHeight={720} maxWidth={1280} >
+        <Stack id="canvases" direction="column" spacing={1} minWidth='100%'>
+            <Box height={720} width={1280} >
                 <CanvasLayer component="div" zIndex={500}>
                     <Canvas id="background" data={background} />
                 </CanvasLayer>
@@ -51,24 +51,29 @@ export default function PreviewComp(props: PreviewProps) {
                     </CanvasLayer>
                 )}
                 {showPlayers && (
-                <CanvasLayer component="div" zIndex={507}>
-                    <Canvas id="players" data={players} />
-                </CanvasLayer>
+                    <CanvasLayer component="div" zIndex={507}>
+                        <Canvas id="players" data={players} />
+                    </CanvasLayer>
                 )}
                 {showLogo && (
-                <CanvasLayer component="div" zIndex={508}>
-                    <Canvas id="logo" data={logo} />
-                </CanvasLayer>
+                    <CanvasLayer component="div" zIndex={508}>
+                        <Canvas id="logo" data={logo} />
+                    </CanvasLayer>
                 )}
                 {showSettings && (
-                <CanvasLayer component="div" zIndex={509}>
-                    <Canvas id="settings" data={settings} />
-                </CanvasLayer>
+                    <CanvasLayer component="div" zIndex={509}>
+                        <Canvas id="settings" data={settings} />
+                    </CanvasLayer>
                 )}
             </Box>
-            <Box>
-                <Button variant="outlined" color="primary" onClick={downloadOverlay}>Download</Button>
-            </Box>
+            <Stack direction='row' justifyContent='space-between'>
+                <Box>
+                    <Button variant="outlined" color="primary" onClick={downloadOverlay}>Download</Button>
+                </Box>
+                <Box>
+                    <Button variant="outlined" color="primary" onClick={() => window.open('https://github.com/djroush/sm-overlay')}>Source Code</Button>
+                </Box>
+            </Stack>
         </Stack>
     )
 }

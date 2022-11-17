@@ -18,7 +18,7 @@ export default function Options(props: OptionsProps) {
         changeShowAvatar, changeShowWins } = props
 
     return (
-        <Stack>
+        <Stack id='options'>
             <Grid container spacing={1}>
                 <Grid item xs={4}>
                     <LabeledCheckbox label='Show&nbsp;Players' value={showPlayers ?? false} onChange={changeShowPlayers} />

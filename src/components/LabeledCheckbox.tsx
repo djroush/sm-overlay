@@ -1,7 +1,6 @@
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox, { CheckboxProps } from '@mui/material/Checkbox';
-import Box from '@mui/material/Box';
 
 export type LabeledCheckboxProps = CheckboxProps & {
   label: string,
@@ -12,10 +11,8 @@ export type LabeledCheckboxProps = CheckboxProps & {
 export default function LabeledCheckbox(props: LabeledCheckboxProps) {
   const { disabled, label, value, onChange } = { ...props }
   return (
-    <Box px={4}>
       <FormGroup>
         <FormControlLabel labelPlacement="start" control={<Checkbox disabled={disabled??false} checked={value}/>} label={label} onChange={onChange} />
       </FormGroup>
-    </Box>
   );
 }

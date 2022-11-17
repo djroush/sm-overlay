@@ -5,23 +5,22 @@ import Names from '../containers/Players';
 import Options from '../containers/Options';
 import Preview from '../containers/Preview';
 
-import { Grid, Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 
 
 export default function App() {
     return (
-        <Grid container spacing={3} padding={2}>
-            <Grid item xs={3}>
+        <Stack spacing={3} padding={2} direction="row">
+            <Box minWidth={600} maxWidth="25vw">
                <Stack spacing={2} padding={3}>
                     <Settings/>
                     <Names/>
                     <Options/>
-                </Stack>
-                
-            </Grid>
-            <Grid item xs={9}>
+                </Stack> 
+            </Box>
+            <Box width={1280}>
                 <Preview />
-            </Grid>
-        </Grid>
+            </Box>
+        </Stack>
     )
 }

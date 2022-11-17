@@ -21,7 +21,7 @@ export default function Settings(props: SettingsProps) {
         changeBosses, changeEscape
     } = props
     return (
-        <Grid container spacing={1}>
+        <Grid id='settings' container spacing={1}>
             <Option label='Theme' value={theme} marks={themeMarks} onChange={changeTheme} />
             <Option label='Mode' value={mode} marks={modeMarks} onChange={changeMode} />
             <Option label='Area' value={area} marks={areaMarks} onChange={changeArea} />
