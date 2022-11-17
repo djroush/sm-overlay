@@ -12,7 +12,6 @@ if (isGithubActions) {
 }
 
 const nextConfig = {
-  basePath: basePath,
   exportPathMap: function () {
     return {
       "/": { page: "/" }
@@ -21,7 +20,8 @@ const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
 
-  assetPrefix: assetPrefix
+  assetPrefix: assetPrefix,
+  basePath: basePath
 }
 
 module.exports = nextConfig
