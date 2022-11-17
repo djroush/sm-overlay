@@ -13,14 +13,10 @@ function* drawSettings(settings: SettingsState) {
     const { theme, mode, area, difficulty, start, morph, escape, bosses } = settings
 
     //Draw Settings
-    // context.textAlign = 'center'
-    // context.font = 'bold 20px sans-serif'
-    // context.fillStyle = '#FDF3FB';
-    // context.fillText(`SETTINGS`, 644, 180, 220);
-
-    context.textAlign = 'left'
     context.font = '16px sans-serif'
     context.fillStyle = '#FDF3FB';
+    context.lineWidth = 3;
+    context.strokeStyle = 'black'
 
     const themeValue = themeOptions[theme-1]
     const modeValue = modeOptions[mode - 1]
@@ -41,7 +37,7 @@ function* drawSettings(settings: SettingsState) {
       `ESCAPE - ${escapeValue}`
     ]
 
-    //Add a space so you don't write one of the settings over the background pipe
+    //Add a space so you don't write over the background on the TOURIAN theme
     if  (themeValue === 'TOURIAN') {
         settingsText.splice(2, 0, '');
     }
