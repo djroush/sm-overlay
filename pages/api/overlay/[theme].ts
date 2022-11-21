@@ -1,84 +1,138 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { ParsedUrlQuery } from 'querystring';
-import { areaOptions, bossesOptions, difficultyOptions, escapeOptions, modeOptions, morphOptions, startOptions, themeOptions } from '../../../src/model/SliderValues';
-
-type OverlayResponse = {
-  valid: boolean
-}
+import type { InferGetServerSidePropsType, NextApiRequest, NextApiResponse } from 'next'
+import { areaValues, bossesValues, difficultyValues, escapeValues, modeValues, morphValues, startValues, themeValues } from '../../../src/model/SliderValues';
+import path from 'path'
+import images from 'images'
 
 type OverlayErrorResponse = {
   errors: string[]
 }
 
+type OverlaySettings = {
+  theme: string,
+  mode: string,
+  area: string,
+  difficulty: string,
+  start: string,
+  morph: string,
+  bosses: string,
+  escape: string
+}
+type OverlayOptions = {
+  showPlayers: string,
+  showLogo: string,
+  showSettings: string,
+  showTracker: string,
+  showAvatar: string,
+  showWins: string
+}
+
+const optionsValues: string[] = ['false', 'true'];
+
+const getServerAssetPath = () => {
+  const assetPathFolders = process.env.env !== 'prod' ? 
+    ['..', '..', '..', '..', '..', 'public', 'overlays'] : 
+    ['..', '..', '..', '..', 'overlays'] ;
+  const serverAssetPath = path.join(__dirname, ...assetPathFolders)
+  
+  return serverAssetPath
+}
+
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<OverlayResponse|OverlayErrorResponse|string>,
+  res: NextApiResponse<OverlayErrorResponse | any>,
 ) {
-  
+
   if (req.method === 'GET') {
-    console.log("Query string: " + JSON.stringify(req.query))
-    const errors = validateQueryParams(req.query ?? {})
+    const { theme, mode, area, difficulty, start, morph, bosses, escape, showPlayers, showLogo, showSettings, showTracker, showAvatar, showWins } = req.query ?? {}
+    let settings = {
+      theme: upper(theme),
+      mode: upper(mode),
+      area: upper(area),
+      difficulty: upper(difficulty),
+      start: upper(start),
+      morph: upper(morph),
+      bosses: upper(bosses),
+      escape: upper(escape)
+    }
+    let options = {
+      showPlayers: lower(showPlayers),
+      showLogo: lower(showLogo),
+      showSettings: lower(showSettings),
+      showTracker: lower(showTracker),
+      showAvatar: lower(showAvatar),
+      showWins: lower(showWins)
+    }
+
+    const errors = validate(settings, options)
     if (errors.length > 0) {
-      res.status(400).json({errors})
+      res.status(400).json({ errors })
     } else {
-      res.status(200).json({valid:true})
+      const overlay = generateOverlay(settings, options)
+      const bytes = overlay.subarray(0, overlay.byteLength)
+      res.status(200).send(bytes)
     }
   } else {
-    res.setHeader('Allow', 'GET').status(405).send('Expected to receive a GET request');
+    res.setHeader('Allow', 'GET').status(405).json({errors:['Expected to receive a GET request']});
   }
 }
 
-const validOptions = ['true','false'];
-function validateQueryParams(query: ParsedUrlQuery): string[] {
-  const {theme, mode, area, difficulty, start, morph, bosses, escape,
-    showPlayers, showLogo, showSettings, showTracker, showAvatar, showWins} = query
-  const errors: string[] = []
-  const options = [showPlayers, showLogo, showSettings, showTracker, showAvatar, showWins];
+function generateOverlay(settings: OverlaySettings, options: OverlayOptions): Buffer {
+  //THIS IS THE WRONG PATH WHEN NOT RUNNING LOCALLY
+  const serverAssetPath = getServerAssetPath();
+ // const imagePath = './maridia-background.png'
+  const bgImage = images(serverAssetPath + '/maridia-background.png').toBuffer('png')
+  return bgImage
+}
 
-  if (!('theme' in query) || !themeOptions.includes(upper(theme))) {
-    errors.push('theme is required, valid options are (' + themeOptions.join(',') + ')');
+function validate(settings: OverlaySettings, options: OverlayOptions): string[] {
+  const { theme, mode, area, difficulty, start, morph, bosses, escape } = settings
+
+  const errors: string[] = []
+
+  if (theme === undefined || !themeValues.includes(upper(theme))) {
+    errors.push('theme is required, valid values are (' + themeValues.join(',') + ')');
   };
-  if (!('mode' in query) || !modeOptions.includes(upper(mode))) {
-    errors.push('mode is required, valid options are (' + modeOptions.join(',') + ')');
+  if (mode === undefined || !modeValues.includes(upper(mode))) {
+    errors.push('mode is required, valid values are (' + modeValues.join(',') + ')');
   }
-  if (!('area' in query) || !areaOptions.includes(upper(area))) {
-    errors.push('area is required, valid options are (' + areaOptions.join(',') + ')');
+  if (!('area' in settings) || !areaValues.includes(upper(area))) {
+    errors.push('area is required, valid values are (' + areaValues.join(',') + ')');
   }
-  if (!('difficulty' in query) || !difficultyOptions.includes(upper(difficulty))) {
-    errors.push('difficulty is required, valid options are (' + difficultyOptions.join(',') + ')');
+  if (!('difficulty' in settings) || !difficultyValues.includes(upper(difficulty))) {
+    errors.push('difficulty is required, valid values are (' + difficultyValues.join(',') + ')');
   }
-  if (!('start' in query) || !startOptions.includes(upper(start))) {
-    errors.push('start is required, valid options are (' + startOptions.join(',') + ')');
+  if (!('start' in settings) || !startValues.includes(upper(start))) {
+    errors.push('start is required, valid values are (' + startValues.join(',') + ')');
   }
-  if (!('morph' in query) || !morphOptions.includes(upper(morph))) {
-    errors.push('morph is required, valid options are (' + morphOptions.join(',') + ')');
+  if (!('morph' in settings) || !morphValues.includes(upper(morph))) {
+    errors.push('morph is required, valid values are (' + morphValues.join(',') + ')');
   }
-  if (!('bosses' in query) || !bossesOptions.includes(upper(bosses))) {
-    errors.push('bosses is required, valid options are (' + bossesOptions.join(',') + ')');
+  if (!('bosses' in settings) || !bossesValues.includes(upper(bosses))) {
+    errors.push('bosses is required, valid values are (' + bossesValues.join(',') + ')');
   }
-  if (!('escape' in query) || !escapeOptions.includes(upper(escape))) {
-    errors.push('escape is required, valid options are (' + escapeOptions.join(',') + ')');
+  if (!('escape' in settings) || !escapeValues.includes(upper(escape))) {
+    errors.push('escape is required, valid values are (' + escapeValues.join(',') + ')');
   }
-  options.forEach(option => {
-    if (option !== undefined && validOptions.includes(lower(option))) {
-      errors.push('')
+  Object.entries(options).forEach(([option, value]) => {
+    if (option && !optionsValues.includes(value)) {
+      errors.push(option + ' has an invalid value, valid values are (' + optionsValues.join(',') + ')');
     }
   })
- 
+
   return errors;
 }
 
-function lower(input: string|string[]|undefined): string {
-  if (input === undefined) {
-    return '';
+function lower(input: string | string[] | undefined): string {
+  if (input === undefined || input === null || input === '') {
+    return 'true';
   } else if (Array.isArray(input)) {
     return input[0].toLowerCase();
   }
   return input.toLowerCase();
 }
 
-function upper(input: string|string[]|undefined): string {
+function upper(input: string | string[] | undefined): string {
   if (input === undefined) {
     return '';
   } else if (Array.isArray(input)) {

@@ -10,7 +10,7 @@ export type PlayersProps = PlayersState & {
 export default function PlayersComp(props: PlayersProps) {
     const { player1, player2, changePlayer1, changePlayer2 } = props
     return (
-        <Grid id='names' container spacing={1}>
+        <Grid container spacing={1}>
             <Grid item xs={3}>
                 <InputLabel>Player 1 Name</InputLabel>
             </Grid>

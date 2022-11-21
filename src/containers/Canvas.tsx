@@ -16,9 +16,7 @@ export default function Canvas(props: CanvasProps) {
         if (context) {
             if (data) {
                 const img = new Image;
-                img.onload = () => {
-                    context.drawImage(img, 0, 0)
-                }
+                img.onload = () => context.drawImage(img, 0, 0)
                 img.src = data;
             } else {
                 context.clearRect(0, 0, 1280, 720);

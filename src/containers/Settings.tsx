@@ -2,7 +2,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import React, { useEffect } from 'react';
 import { RootState } from '../redux/state/RootState';
-import { themeOptions } from '../model/SliderValues';
+import { themeValues } from '../model/SliderValues';
 import SettingsComp, { SettingsProps } from '../components/Settings';
 
 export default function Settings() {
@@ -12,7 +12,7 @@ export default function Settings() {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch({type:'THEME/fetch-theme', theme: themeOptions[theme-1]});
+        dispatch({type:'THEME/fetch-theme', theme: themeValues[theme-1]});
     }, [theme]);
 
     useEffect(() => { 

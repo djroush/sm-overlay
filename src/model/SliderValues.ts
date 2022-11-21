@@ -3,25 +3,25 @@ export type Mark = {
     label: string
 }
 
-export const themeOptions: string[] = ['MARIDIA', 'TOURIAN'];
-export const modeOptions: string[] = ['FULL', 'FULL COUNTDOWN', 'MAJOR MINOR', 'CHOZO'];
-export const areaOptions: string[] = ['VANILLA', 'LIGHT', 'FULL'];
-export const difficultyOptions: string[] = ['BASIC', 'EASY', 'MEDIUM', 'HARD', 'HARDEST'];
-export const startOptions: string[] = ['VANILLA', 'SHALLOW', 'MIDWAY', 'DEEP', 'RANDOM'];
-export const morphOptions: string[] = ['EARLY', 'LATE', 'RANDOM'];
-export const bossesOptions = ['VANILLA', 'RANDOM'];
-export const escapeOptions: string[] = ['VANILLA', 'RANDOM'];
+export const themeValues: string[] = ['MARIDIA', 'TOURIAN'];
+export const modeValues: string[] = ['FULL', 'FULL COUNTDOWN', 'MAJOR MINOR', 'CHOZO'];
+export const areaValues: string[] = ['VANILLA', 'LIGHT', 'FULL'];
+export const difficultyValues: string[] = ['BASIC', 'EASY', 'MEDIUM', 'HARD', 'HARDEST'];
+export const startValues: string[] = ['VANILLA', 'SHALLOW', 'MIDWAY', 'DEEP', 'RANDOM'];
+export const morphValues: string[] = ['EARLY', 'LATE', 'RANDOM'];
+export const bossesValues = ['VANILLA', 'RANDOM'];
+export const escapeValues: string[] = ['VANILLA', 'RANDOM'];
 
 const createMarks = (values: string[]): Mark[] => {
     return values.map((label, index) => { return { value: index + 1, label } })
 }
 
-export const themeMarks: Mark[] = createMarks(themeOptions);
-export const modeMarks: Mark[] = createMarks(modeOptions);
-export const areaMarks: Mark[] = createMarks(areaOptions);
-export const difficultyMarks: Mark[] = createMarks(difficultyOptions);
-export const startMarks: Mark[] = createMarks(startOptions);
-export const morphMarks: Mark[] = createMarks(morphOptions);
-export const bossesMarks = createMarks(bossesOptions)
-export const escapeMarks: Mark[] = createMarks(escapeOptions);
+export const themeMarks: Mark[] = createMarks(themeValues);
+export const modeMarks: Mark[] = createMarks(modeValues);
+export const areaMarks: Mark[] = createMarks(areaValues);
+export const difficultyMarks: Mark[] = createMarks(difficultyValues);
+export const startMarks: Mark[] = createMarks(startValues);
+export const morphMarks: Mark[] = createMarks(morphValues);
+export const bossesMarks = createMarks(bossesValues)
+export const escapeMarks: Mark[] = createMarks(escapeValues);
 

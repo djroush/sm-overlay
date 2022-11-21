@@ -1,6 +1,6 @@
 import { CanvasRenderingContext2D, createCanvas } from 'canvas';
 import { takeLatest, put, select, call, all } from 'redux-saga/effects';
-import { modeOptions, areaOptions, difficultyOptions, startOptions, morphOptions, escapeOptions, bossesOptions, themeOptions } from '../model/SliderValues';
+import { modeValues, areaValues, difficultyValues, startValues, morphValues, escapeValues, bossesValues, themeValues } from '../model/SliderValues';
 import { SettingsState } from '../redux/state/SettingsState';
 import { RootState } from '../redux/state/RootState';
 import { outlineText } from './PlayersSaga';
@@ -18,14 +18,14 @@ function* drawSettings(settings: SettingsState) {
     context.lineWidth = 2;
     context.strokeStyle = 'black'
 
-    const themeValue = themeOptions[theme-1]
-    const modeValue = modeOptions[mode - 1]
-    const areaValue = areaOptions[area - 1]
-    const difficultyValue = difficultyOptions[difficulty - 1]
-    const startValue = startOptions[start - 1]
-    const morphValue = morphOptions[morph - 1]
-    const escapeValue = escapeOptions[escape - 1]
-    const bossesValue = bossesOptions[bosses - 1]
+    const themeValue = themeValues[theme-1]
+    const modeValue = modeValues[mode - 1]
+    const areaValue = areaValues[area - 1]
+    const difficultyValue = difficultyValues[difficulty - 1]
+    const startValue = startValues[start - 1]
+    const morphValue = morphValues[morph - 1]
+    const escapeValue = escapeValues[escape - 1]
+    const bossesValue = bossesValues[bosses - 1]
 
     const settingsText = [
       `MODE - ${modeValue}`,
