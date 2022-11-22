@@ -1,8 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { InferGetServerSidePropsType, NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next'
 import { areaValues, bossesValues, difficultyValues, escapeValues, modeValues, morphValues, startValues, themeValues } from '../../../src/model/SliderValues';
 import path from 'path'
-import images from 'images'
+import sharp from 'sharp'
 
 type OverlayErrorResponse = {
   errors: string[]
@@ -38,7 +38,7 @@ const getServerAssetPath = () => {
   return serverAssetPath
 }
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<OverlayErrorResponse | any>,
 ) {
@@ -68,20 +68,28 @@ export default function handler(
     if (errors.length > 0) {
       res.status(400).json({ errors })
     } else {
-      const overlay = generateOverlay(settings, options)
-      const bytes = overlay.subarray(0, overlay.byteLength)
-      res.status(200).send(bytes)
+      const overlay = await generateOverlay(settings, options)
+      res.status(200).send(overlay)
     }
   } else {
     res.setHeader('Allow', 'GET').status(405).json({errors:['Expected to receive a GET request']});
   }
 }
 
-function generateOverlay(settings: OverlaySettings, options: OverlayOptions): Buffer {
-  //THIS IS THE WRONG PATH WHEN NOT RUNNING LOCALLY
+//TODO: finish implementing this properly
+function generateOverlay(settings: OverlaySettings, options: OverlayOptions): Promise<Buffer> {
   const serverAssetPath = getServerAssetPath();
- // const imagePath = './maridia-background.png'
-  const bgImage = images(serverAssetPath + '/maridia-background.png').toBuffer('png')
+  const bgImage = sharp(serverAssetPath + '/maridia-background.png')
+    .toFormat('png')
+    .sharpen({
+      sigma: 0.01,
+      m1: 0.01,
+      m2: 0.01,
+      x1: 0.01,
+      y2: 0.01,
+      y3: 0.01
+    })
+    .toBuffer()
   return bgImage
 }
 
