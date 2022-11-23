@@ -23,8 +23,12 @@ export const previewReducer = (state = defaultPreviewState, action: any) => {
     return {...state, logo: action.value}
   } else if (action.type === 'PREVIEW/persist-settings') {
     return {...state, settings: action.value}
-  } else if (action.type === 'PREVIEW/clear-settings') {
-    return {...state, settings: null}
+  } else if (action.type === 'PREVIEW/clear-theme') {
+    return {
+      ...state,
+      background: null, streams: null, names: null, timers: null,
+      trackers: null, avatars: null, wins: null, settings: null
+    }
   }
 
   return state;

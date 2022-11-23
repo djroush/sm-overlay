@@ -12,7 +12,7 @@ export default function Settings() {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch({type:'PREVIEW/clear-settings'})
+        dispatch({type:'PREVIEW/clear-theme'})
         dispatch({type:'THEME/fetch-theme', theme: themeValues[theme-1]});
     }, [theme]);
 

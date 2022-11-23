@@ -50,17 +50,17 @@ export default function PreviewComp(props: PreviewProps) {
                         <Canvas id="wins" data={wins} />
                     </CanvasLayer>
                 )}
-                {showPlayers && (
+                {showPlayers && background && (
                     <CanvasLayer component="div" zIndex={507}>
                         <Canvas id="players" data={players} />
                     </CanvasLayer>
                 )}
-                {showLogo && (
+                {showLogo && background && (
                     <CanvasLayer component="div" zIndex={508}>
                         <Canvas id="logo" data={logo} />
                     </CanvasLayer>
                 )}
-                {showSettings && (
+                {showSettings && background && (
                     <CanvasLayer component="div" zIndex={509}>
                         <Canvas id="settings" data={settings} />
                     </CanvasLayer>
