@@ -11,7 +11,7 @@ import { Box, Stack } from '@mui/material';
 export default function App() {
     return (
         <Stack spacing={3} padding={2} direction="row">
-            <Box minWidth={600} maxWidth="25vw">
+            <Box minWidth={590} maxWidth="25vw">
                <Stack spacing={2} padding={3}>
                     <Settings/>
                     <Names/>

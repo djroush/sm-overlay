@@ -4,7 +4,7 @@ import { takeLatest, put, all, call } from 'redux-saga/effects';
 const trimEqualsRegExp = new RegExp("=*$");
 
 function* loadTheme (theme: string) {
-    //@ts-ignore
+    //@ts-ignore   To understand what this code is doing, see comments below
     const image: any = yield call(loadImage, `overlays/${theme}.png`)
     const backgroundCanvas = extractLayer(image, 0, 0, 1280, 720);
     const streamCanvas = extractLayer(image, 0, 720, 511, 391);
@@ -14,7 +14,6 @@ function* loadTheme (theme: string) {
     const avatar1Canvas = extractLayer(image, 721, 827, 162, 195);
     const avatar2Canvas = extractLayer(image, 883, 827, 162, 195);
     const winsCanvas = extractLayer(image, 1047, 827, 96, 193);
-
     
     const canvas: Canvas = createCanvas(1280, 720)
     const context = canvas.getContext('2d')
