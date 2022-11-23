@@ -1,5 +1,5 @@
 import { CanvasRenderingContext2D, createCanvas } from 'canvas';
-import { put, select, throttle } from 'redux-saga/effects';
+import { delay, put, select, takeLatest, throttle } from 'redux-saga/effects';
 import { RootState } from '../redux/state/RootState';
 import { PlayersState } from '../redux/state/PlayersState';
 
@@ -33,10 +33,11 @@ export function* outlineText(context: CanvasRenderingContext2D, text: string, x:
 }
 
 export function* workerPlayers() {
+    yield delay(180)
     const { names } = yield select((state: RootState) => state)
     yield drawPlayers(names)
 }
 
 export default function* watchPlayers() {
-    yield throttle(300, 'PLAYERS/update-players', workerPlayers);
+    yield takeLatest('PLAYERS/update-players', workerPlayers);
 }

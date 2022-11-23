@@ -12,6 +12,7 @@ export default function Settings() {
     const dispatch = useDispatch()
 
     useEffect(() => {
+        dispatch({type:'PREVIEW/clear-settings'})
         dispatch({type:'THEME/fetch-theme', theme: themeValues[theme-1]});
     }, [theme]);
 
@@ -21,7 +22,8 @@ export default function Settings() {
 
     useEffect(() => {
         dispatch({type:'SETTINGS/update-settings'})
-    }, [theme, mode, area, difficulty, start, morph, escape, bosses])
+    }, [mode, area, difficulty, start, morph, escape, bosses])
+
 
     const changeTheme = (_: Event, value: number | number[]) => {
         dispatch({type: 'SETTINGS/change-theme', value })
