@@ -12,7 +12,7 @@ export type PreviewProps = PreviewState & OptionsState & {
 export default function PreviewComp(props: PreviewProps) {
     const {
         background, logo, streams, names, timers, trackers, avatars, wins, players, settings,
-        showPlayers, showLogo, showSettings, showTracker, showAvatar, showWins, downloadOverlay
+        hidePlayers, hideLogo, hideSettings, hideTracker, hideAvatar, hideWins, downloadOverlay
     } = props
 
 
@@ -35,32 +35,32 @@ export default function PreviewComp(props: PreviewProps) {
                 <CanvasLayer component="div" zIndex={503}>
                     <Canvas id="timers" data={timers} />
                 </CanvasLayer>
-                {showTracker && (
+                {!hideTracker && (
                     <CanvasLayer component="div" zIndex={504}>
                         <Canvas id="trackers" data={trackers} />
                     </CanvasLayer>
                 )}
-                {showAvatar && (
+                {!hideAvatar && (
                     <CanvasLayer component="div" zIndex={505}>
                         <Canvas id="avatars" data={avatars} />
                     </CanvasLayer>
                 )}
-                {showWins && (
+                {!hideWins && (
                     <CanvasLayer component="div" zIndex={506}>
                         <Canvas id="wins" data={wins} />
                     </CanvasLayer>
                 )}
-                {showPlayers && background && (
+                {!hidePlayers && background && (
                     <CanvasLayer component="div" zIndex={507}>
                         <Canvas id="players" data={players} />
                     </CanvasLayer>
                 )}
-                {showLogo && background && (
+                {!hideLogo && background && (
                     <CanvasLayer component="div" zIndex={508}>
                         <Canvas id="logo" data={logo} />
                     </CanvasLayer>
                 )}
-                {showSettings && background && (
+                {!hideSettings && background && (
                     <CanvasLayer component="div" zIndex={509}>
                         <Canvas id="settings" data={settings} />
                     </CanvasLayer>

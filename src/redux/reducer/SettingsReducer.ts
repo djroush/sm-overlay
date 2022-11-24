@@ -17,12 +17,12 @@ export const settingsReducer = (state = defaultSettingsState, action: any) => {
     return {...state, escape: action.value}
   } else if (action.type === 'SETTINGS/change-bosses') {
     return {...state, bosses: action.value}
-  } else if (action.type === 'SETTINGS/change-showTracker') {
-    return {...state, showTracker: action.value}
-  } else if (action.type === 'SETTINGS/change-showAvatar') {
-    return {...state, showAvatar: action.value}
-  } else if (action.type === 'SETTINGS/change-showWins') {
-    return {...state, showWins: action.value}
+  } else if (action.type === 'SETTINGS/change-hideTracker') {
+    return {...state, hideTracker: action.value}
+  } else if (action.type === 'SETTINGS/change-hideAvatar') {
+    return {...state, hideAvatar: action.value}
+  } else if (action.type === 'SETTINGS/change-hideWins') {
+    return {...state, hideWins: action.value}
   } else if (action.type === 'SETTINGS/change-player1') {
     return {...state, player1: action.value}
   } else if (action.type === 'SETTINGS/change-player2') {

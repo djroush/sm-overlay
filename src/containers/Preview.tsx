@@ -8,7 +8,7 @@ import PreviewComp from '../components/Preview';
 export default function Preview() {
     const { options, preview } = useSelector((state: RootState) => state)
 
-    const { showPlayers, showLogo, showSettings, showWins, showAvatar, showTracker } = options
+    const { hidePlayers, hideLogo, hideSettings, hideWins, hideAvatar, hideTracker } = options
 
     const downloadOverlay = () => {
         const backgroundCanvas = document.getElementById('background');
@@ -25,7 +25,7 @@ export default function Preview() {
         const canvas = createCanvas(1280, 720);
         const context = canvas.getContext('2d');
         context.drawImage(backgroundCanvas, 0, 0);
-        if (showLogo) {
+        if (!hideLogo) {
             context.drawImage(logoCanvas, 0, 0);
         }
 
@@ -33,22 +33,22 @@ export default function Preview() {
         context.drawImage(namesCanvas, 0, 0);
         context.drawImage(timersCanvas, 0, 0);
 
-        if (showTracker) {
+        if (!hideTracker) {
             context.drawImage(trackersCanvas, 0, 0);
         }
-        if (showAvatar) {
+        if (!hideAvatar) {
             context.drawImage(avatarsCanvas, 0, 0);
         }
-        if (showWins) {
+        if (!hideWins) {
             context.drawImage(winsCanvas, 0, 0);
         }
-        if (showPlayers) {
+        if (!hidePlayers) {
             context.drawImage(playersCanvas, 0, 0);
         }
-        if (showLogo) {
+        if (!hideLogo) {
             context.drawImage(logoCanvas, 0, 0);
         }
-        if (showSettings) {
+        if (!hideSettings) {
             context.drawImage(settingsCanvas, 0, 0);
         }
 

@@ -12,7 +12,7 @@ export default function LabeledCheckbox(props: LabeledCheckboxProps) {
   const { disabled, label, value, onChange } = { ...props }
   return (
       <FormGroup>
-        <FormControlLabel labelPlacement="start" control={<Checkbox disabled={disabled??false} checked={value}/>} label={label} onChange={onChange} />
+        <FormControlLabel labelPlacement="start" control={<Checkbox disabled={disabled} checked={value}/>} label={label} onChange={onChange} />
       </FormGroup>
   );
 }
