@@ -3,6 +3,8 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { areaValues, bossesValues, difficultyValues, escapeValues, modeValues, morphValues, startValues, themeValues } from '../../../src/model/SliderValues';
 import path from 'path'
 import sharp from 'sharp'
+import { PlayersState } from '../../../src/redux/state/PlayersState';
+import { OptionsState } from '../../../src/redux/state/OptionsState';
 
 type OverlayErrorResponse = {
   errors: string[]
@@ -17,14 +19,6 @@ type OverlaySettings = {
   morph: string,
   bosses: string,
   escape: string
-}
-type OverlayOptions = {
-  hidePlayers: boolean,
-  hideLogo: boolean,
-  hideSettings: boolean,
-  hideTracker: boolean,
-  hideAvatar: boolean,
-  hideWins: boolean
 }
 
 const getServerAssetPath = () => {
@@ -42,8 +36,12 @@ export default async function handler(
 ) {
 
   if (req.method === 'GET') {
-    const { theme, mode, area, difficulty, start, morph, bosses, escape, hidePlayers, hideLogo, hideSettings, hideTracker, hideAvatar, hideWins } = req.query ?? {}
-    let settings = {
+    const {
+      theme, mode, area, difficulty, start, morph, bosses, escape,              //settings
+      player1, player2,                                                          //players
+      hidePlayers, hideLogo, hideSettings, hideTracker, hideAvatar, hideWins    //options
+    } = req.query ?? {}
+    const settings = {
       theme: upper(theme),
       mode: upper(mode),
       area: upper(area),
@@ -53,7 +51,11 @@ export default async function handler(
       bosses: upper(bosses),
       escape: upper(escape)
     }
-    let options = {
+    const players: PlayersState = {
+      player1: normalize(player1),
+      player2: normalize(player2)
+    }
+    const options: OptionsState = {
       hidePlayers: lower(hidePlayers),
       hideLogo: lower(hideLogo),
       hideSettings: lower(hideSettings),
@@ -62,11 +64,11 @@ export default async function handler(
       hideWins: lower(hideWins)
     }
 
-    const errors = validate(settings, options)
+    const errors = validate(settings, players, options)
     if (errors.length > 0) {
       res.status(400).json({ errors })
     } else {
-      const overlay = await generateOverlay(settings, options)
+      const overlay = await generateOverlay(settings, players, options)
       res.status(200).send(overlay)
     }
   } else {
@@ -75,21 +77,23 @@ export default async function handler(
 }
 
 
-//TODO: finish implementing this properly
-async function generateOverlay(settings: OverlaySettings, options: OverlayOptions): Promise<Buffer> {
+async function generateOverlay(settings: OverlaySettings, players: PlayersState, options: OptionsState): Promise<Buffer> {
+  const { theme } = settings
   const { hidePlayers, hideLogo, hideSettings, hideTracker, hideAvatar, hideWins } = options
+  const { player1, player2 } = players
 
   const serverAssetPath = getServerAssetPath();
-  const themeLayer = sharp(serverAssetPath + '/overlays/maridia.png')
+  const themeLayer = sharp(serverAssetPath + `/overlays/${theme.toLowerCase()}.png`)
 
   const backgroundLayer = await extractLayer(themeLayer, 0, 0, 1280, 720);
-  const streamLayer = await extractLayer(themeLayer.clone(), 0, 720, 511, 390).toBuffer();
+  const streamLayer = await extractLayer(themeLayer, 0, 720, 511, 390).toBuffer();
   const nameLayer = await extractLayer(themeLayer, 511, 720, 342, 105).toBuffer();
   const timerLayer = await extractLayer(themeLayer, 853, 720, 149, 105).toBuffer();
   const trackerLayer = await extractLayer(themeLayer, 512, 827, 211, 202).toBuffer();
   const avatar1Layer = await extractLayer(themeLayer, 721, 827, 162, 195).toBuffer();
   const avatar2Layer = await extractLayer(themeLayer, 883, 827, 162, 195).toBuffer();
   const winsLayer = await extractLayer(themeLayer, 1047, 827, 96, 193).toBuffer();
+
 
   let overlayLayers = [
     { input: streamLayer, left: 15, top: 116 },
@@ -118,10 +122,13 @@ async function generateOverlay(settings: OverlaySettings, options: OverlayOption
     ])
   }
   if (!hidePlayers) {
-      //TODO: finish implementing this
-  //add playersLayer
+    const player1Layer = await generatePlayer(player1)
+    const player2Layer = await generatePlayer(player2)
 
-
+    overlayLayers = overlayLayers.concat([
+      { input: player1Layer, left: 30, top: 47 },
+      { input: player2Layer, left: 766, top: 47 }
+    ])
   }
   if (!hideLogo) {
     const logoLayer = await sharp(serverAssetPath + '/logos/default.png').toBuffer()
@@ -132,7 +139,11 @@ async function generateOverlay(settings: OverlaySettings, options: OverlayOption
   }
   if (!hideSettings) {
     //TODO: finish implementing this
-    const settingsLayer = await generateSettings(settings)    
+    const settingsLayer = await generateSettings(settings)
+    overlayLayers = overlayLayers.concat([
+      { input: settingsLayer, left: 534, top: 165 }
+    ])
+
 
   }
   const overlay = backgroundLayer
@@ -152,13 +163,24 @@ const extractLayer = (image: sharp.Sharp, x: number, y: number, w: number, h: nu
     })
 }
 
-const generateSettings = (settings: OverlaySettings) => {
+const generatePlayer = (player: string) => {
+  return Buffer.from(`
+    <svg width="312" height="51">
+        <text x="50%" y="50%" text-anchor="middle" font-family="roboto,sans-serif" font-size="28px" stroke="black" stroke-width="2">${player}</text>
+        <text x="50%" y="50%" text-anchor="middle" font-family="roboto,sans-serif" font-size="28px" fill="#FDF3FB" >${player}</text>
+    </svg>
+`);
+
+}
+
+const generateSettings = async (settings: OverlaySettings) => {
   const { mode, area, difficulty, start, morph, bosses, escape, theme } = settings
+
   const settingsText = [
     `MODE - ${mode}`,
     `AREA - ${area}`,
     `DIFFICULTY - ${difficulty}`,
-    `START -  ${start}`,
+    `START - ${start}`,
     `MORPH - ${morph}`,
     `BOSSES - ${bosses}`,
     `ESCAPE - ${escape}`
@@ -168,16 +190,21 @@ const generateSettings = (settings: OverlaySettings) => {
   if (theme === 'TOURIAN') {
     settingsText.splice(2, 0, '');
   }
-  let settingsHeight = 190;
-  //TODO: figure out how to do this with sharp / pango 
-  // yield all(settingsText.map((setting, index) =>
-  //     call(outlineText, context, setting, 534, settingsHeight + (25*index), 220)
-  // ));
 
+  let svgText = '<svg width="220" height="255">\n'
+  settingsText.forEach((setting, index) => {
+    const height = 25*(index+1)
+    svgText += `\t<text x="0%" font-family="roboto,sans-serif" font-weight="400" font-size="16px" stroke="black" stroke-width="2" dy="${height}">${setting}</text>\n`
+    svgText += `\t<text x="0%" font-family="roboto,sans-serif" font-weight="400" font-size="16px" fill="#FDF3FB" dy="${height}">${setting}</text>\n`
+  })
+  svgText += '</svg>\n'
+  return Buffer.from(svgText)
 }
 
-function validate(settings: OverlaySettings, options: OverlayOptions): string[] {
+function validate(settings: OverlaySettings, players: PlayersState, options: OptionsState): string[] {
   const { theme, mode, area, difficulty, start, morph, bosses, escape } = settings
+  const { player1, player2 } = players
+  const { hidePlayers } = options
 
   const errors: string[] = []
 
@@ -205,6 +232,14 @@ function validate(settings: OverlaySettings, options: OverlayOptions): string[] 
   if (!('escape' in settings) || !escapeValues.includes(upper(escape))) {
     errors.push('escape is required, valid values are (' + escapeValues.join(',') + ')');
   }
+  if (!hidePlayers) {
+    if (player1 !== undefined && player1?.trim().length === 0) {
+      errors.push('player1 cannot be blank unless hidePlayers=true')
+    }
+    if (player2 !== undefined && player2?.trim().length === 0) {
+      errors.push('player2 cannot be blank unless hidePlayers=true')
+    }
+  }
 
   return errors;
 }
@@ -217,6 +252,16 @@ function lower(input: string | string[] | undefined): boolean {
   }
   return input?.toLowerCase() !== 'false';
 }
+
+function normalize(input: string | string[] | undefined): string {
+  if (input === undefined || input === null || input === '') {
+    return '';
+  } else if (Array.isArray(input)) {
+    input = input[0]
+  }
+  return input;
+}
+
 
 function upper(input: string | string[] | undefined): string {
   if (input === undefined) {

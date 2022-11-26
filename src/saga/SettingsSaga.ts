@@ -31,7 +31,7 @@ function* drawSettings(settings: SettingsState) {
       `MODE - ${modeValue}`,
       `AREA - ${areaValue}`,
       `DIFFICULTY - ${difficultyValue}`,
-      `START -  ${startValue}`,
+      `START - ${startValue}`,
       `MORPH - ${morphValue}`,
       `BOSSES - ${bossesValue}`,
       `ESCAPE - ${escapeValue}`

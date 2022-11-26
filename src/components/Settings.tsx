@@ -1,6 +1,6 @@
 
 import { Grid } from '@mui/material';
-import Option from './SliderOption';
+import SliderSetting from './SliderOption';
 import { themeMarks, modeMarks, areaMarks, difficultyMarks, startMarks, morphMarks, escapeMarks, bossesMarks } from '../model/SliderValues';
 import { SettingsState } from '../redux/state/SettingsState';
 
@@ -22,14 +22,14 @@ export default function Settings(props: SettingsProps) {
     } = props
     return (
         <Grid container spacing={1}>
-            <Option label='Theme' value={theme} marks={themeMarks} onChange={changeTheme} />
-            <Option label='Mode' value={mode} marks={modeMarks} onChange={changeMode} />
-            <Option label='Area' value={area} marks={areaMarks} onChange={changeArea} />
-            <Option label='Difficulty' value={difficulty} marks={difficultyMarks} onChange={changeDifficulty} />
-            <Option label='Start Location' value={start} marks={startMarks} onChange={changeStart} />
-            <Option label='Morph Location' value={morph} marks={morphMarks} onChange={changeMorph} />
-            <Option label='Bosses' value={bosses} marks={bossesMarks} onChange={changeBosses} />
-            <Option label='Escape' value={escape} marks={escapeMarks} onChange={changeEscape} />
+            <SliderSetting label='Theme' value={theme} marks={themeMarks} onChange={changeTheme} />
+            <SliderSetting label='Mode' value={mode} marks={modeMarks} onChange={changeMode} />
+            <SliderSetting label='Area' value={area} marks={areaMarks} onChange={changeArea} />
+            <SliderSetting label='Difficulty' value={difficulty} marks={difficultyMarks} onChange={changeDifficulty} />
+            <SliderSetting label='Start Location' value={start} marks={startMarks} onChange={changeStart} />
+            <SliderSetting label='Morph Location' value={morph} marks={morphMarks} onChange={changeMorph} />
+            <SliderSetting label='Bosses' value={bosses} marks={bossesMarks} onChange={changeBosses} />
+            <SliderSetting label='Escape' value={escape} marks={escapeMarks} onChange={changeEscape} />
         </Grid>
     )
 }

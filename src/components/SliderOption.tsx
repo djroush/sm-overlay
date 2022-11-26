@@ -2,15 +2,15 @@
 import { Box, Grid, InputLabel, Slider } from '@mui/material';
 import { Mark } from '../model/SliderValues';
 
-export type OptionProps = {
+export type SliderSettingProps = {
     disabled?: boolean
     label: string,
     value: number,
     marks: Mark[]
-    onChange: (event: Event, value: number|number[]) => void
+    onChange: (event: Event, value: number | number[]) => void
 }
 
-export default function Option(props: OptionProps) {
+export default function SliderSetting(props: SliderSettingProps) {
     const { disabled, label, value, marks, onChange } = { ...props }
 
     return (
