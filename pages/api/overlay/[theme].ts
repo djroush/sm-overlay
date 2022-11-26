@@ -1,4 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { areaValues, bossesValues, difficultyValues, escapeValues, modeValues, morphValues, startValues, themeValues } from '../../../src/model/SliderValues';
 import path from 'path'
@@ -38,7 +37,7 @@ export default async function handler(
   if (req.method === 'GET') {
     const {
       theme, mode, area, difficulty, start, morph, bosses, escape,              //settings
-      player1, player2,                                                          //players
+      player1, player2,                                                         //players
       hidePlayers, hideLogo, hideSettings, hideTracker, hideAvatar, hideWins    //options
     } = req.query ?? {}
     const settings = {
@@ -75,7 +74,6 @@ export default async function handler(
     res.setHeader('Allow', 'GET').status(405).json({ errors: ['Expected to receive a GET request'] });
   }
 }
-
 
 async function generateOverlay(settings: OverlaySettings, players: PlayersState, options: OptionsState): Promise<Buffer> {
   const { theme } = settings
@@ -138,17 +136,12 @@ async function generateOverlay(settings: OverlaySettings, players: PlayersState,
     ])
   }
   if (!hideSettings) {
-    //TODO: finish implementing this
     const settingsLayer = await generateSettings(settings)
     overlayLayers = overlayLayers.concat([
       { input: settingsLayer, left: 534, top: 165 }
     ])
-
-
   }
-  const overlay = backgroundLayer
-    .composite(overlayLayers)
-
+  const overlay = backgroundLayer.composite(overlayLayers)
   return overlay.toBuffer()
 }
 
@@ -173,7 +166,7 @@ const generatePlayer = (player: string) => {
 
 }
 
-const generateSettings = async (settings: OverlaySettings) => {
+const generateSettings = (settings: OverlaySettings) => {
   const { mode, area, difficulty, start, morph, bosses, escape, theme } = settings
 
   const settingsText = [
@@ -269,5 +262,5 @@ function upper(input: string | string[] | undefined): string {
   } else if (Array.isArray(input)) {
     return input[0].toUpperCase();
   }
-  return input.toUpperCase();
+  return input.toUpperCase().replaceAll('_', ' ');
 }
