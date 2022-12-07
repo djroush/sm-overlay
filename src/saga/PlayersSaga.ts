@@ -1,11 +1,11 @@
 import { CanvasRenderingContext2D, createCanvas } from 'canvas';
 import { delay, put, select, takeLatest, throttle } from 'redux-saga/effects';
 import { RootState } from '../redux/state/RootState';
-import { PlayersState } from '../redux/state/PlayersState';
+import { NamesState } from '../redux/state/PlayersState';
 
 const trimEqualsRegExp = new RegExp("=*$");
 
-function* drawPlayers(names: PlayersState) {
+function* drawPlayers(names: NamesState) {
     const canvas = createCanvas(1280, 720);
     const context: CanvasRenderingContext2D = canvas.getContext('2d')
     context.textAlign = 'center'

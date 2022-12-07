@@ -1,18 +1,21 @@
 import { defaultSettingsState, SettingsState } from './SettingsState'
 import { defaultOptionsState, OptionsState } from './OptionsState'
 import { defaultPreviewState, PreviewState } from './PreviewState'
-import { defaultPlayersState, PlayersState } from './PlayersState'
+import { defaultNamesState, NamesState } from './PlayersState'
+import { ActionsState, defaultActionsState } from './ActionsState'
 
 export type RootState = {
     settings: SettingsState,
-    names: PlayersState,
+    names: NamesState,
     options: OptionsState,
-    preview: PreviewState
+    preview: PreviewState,
+    actions: ActionsState,
 }
 
 export const defaultRootState = {
     settings: {...defaultSettingsState },
-    names: {...defaultPlayersState },
-    options: { ...defaultOptionsState },
-    preview: { ...defaultPreviewState }
+    names: {...defaultNamesState },
+    options: {...defaultOptionsState },
+    preview: {...defaultPreviewState },
+    actions: {...defaultActionsState }
 }

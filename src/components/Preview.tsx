@@ -1,20 +1,18 @@
 
-import { Box, Button, Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { styled } from '@mui/system';
 import { PreviewState } from '../redux/state/PreviewState';
 import Canvas from '../containers/Canvas';
 import { OptionsState } from '../redux/state/OptionsState';
+import Actions from '../containers/Actions';
 
-export type PreviewProps = PreviewState & OptionsState & {
-    downloadOverlay: () => void
-}
+export type PreviewProps = PreviewState & OptionsState
 
 export default function PreviewComp(props: PreviewProps) {
     const {
         background, logo, streams, names, timers, trackers, avatars, wins, players, settings,
-        hidePlayers, hideLogo, hideSettings, hideTracker, hideAvatar, hideWins, downloadOverlay
+        hidePlayers, hideLogo, hideSettings, hideTracker, hideAvatar, hideWins
     } = props
-
 
     const CanvasLayer = styled(Box)({
         position: 'absolute', top: 16
@@ -66,14 +64,7 @@ export default function PreviewComp(props: PreviewProps) {
                     </CanvasLayer>
                 )}
             </Box>
-            <Stack direction='row' justifyContent='space-between'>
-                <Box>
-                    <Button variant="outlined" color="primary" onClick={downloadOverlay}>Download</Button>
-                </Box>
-                <Box>
-                    <Button variant="outlined" color="primary" onClick={() => window.open('https://github.com/djroush/sm-overlay')}>Source Code</Button>
-                </Box>
-            </Stack>
+            <Actions/>
         </Stack>
     )
 }

@@ -1,5 +1,5 @@
 
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { createCanvas } from 'canvas';
 import { RootState } from '../redux/state/RootState';
 import PreviewComp from '../components/Preview';
@@ -7,6 +7,7 @@ import PreviewComp from '../components/Preview';
 
 export default function Preview() {
     const { options, preview } = useSelector((state: RootState) => state)
+    const dispatch = useDispatch()
 
     const { hidePlayers, hideLogo, hideSettings, hideWins, hideAvatar, hideTracker } = options
 
@@ -60,6 +61,10 @@ export default function Preview() {
         link.remove();
     }
 
-    const props = { ...preview, ...options, downloadOverlay }
+    const showApiCallPopover = () => {
+        dispatch({type:'Preview/mutateShowApiCall', value: true})
+    }
+
+    const props = { ...preview, ...options, downloadOverlay, showApiCallPopover, showApiCall: false }
     return <PreviewComp {...props} />
 }

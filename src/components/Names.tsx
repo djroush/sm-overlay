@@ -1,8 +1,8 @@
 
 import { Grid, Input, InputLabel } from '@mui/material';
-import { PlayersState } from '../redux/state/PlayersState';
+import { NamesState } from '../redux/state/PlayersState';
 
-export type PlayersProps = PlayersState & {
+export type PlayersProps = NamesState & {
     changePlayer1: (event: React.ChangeEvent<HTMLInputElement>) => void
     changePlayer2: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
