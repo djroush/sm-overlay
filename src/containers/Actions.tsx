@@ -4,9 +4,6 @@ import { createCanvas } from 'canvas';
 import { RootState } from '../redux/state/RootState';
 import ActionsComp from '../components/Actions';
 import { areaValues, bossesValues, difficultyValues, escapeValues, modeValues, morphValues, startValues, themeValues } from '../model/SliderValues';
-import { SettingsState } from '../redux/state/SettingsState';
-import { OptionsState } from '../redux/state/OptionsState';
-import { NamesState } from '../redux/state/PlayersState';
 
 export default function Actions() {
     const { settings, options, names, actions } = useSelector((state: RootState) => state)

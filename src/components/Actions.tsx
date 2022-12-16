@@ -18,33 +18,27 @@ export default function ActionsComp(props: ActionsProps) {
         }
     })
 
-    const CenteredPopover = styled(Snackbar)({
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-    })
-
     return (
         <>
-            <CenteredPopover 
+            <Snackbar 
               open={showApiCall} 
-              autoHideDuration={5000}
+              autoHideDuration={4000}
               onClose={hideApiCallPopover}
               anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
               transitionDuration={{ enter: 1000, exit: 3000 }}
               TransitionComponent={Fade}
             >
-                <Alert severity="info">Copied web service url to clipboard</Alert>
-            </CenteredPopover>
+                <Alert severity="info">Copied download link to clipboard</Alert>
+            </Snackbar>
 
             <Stack direction='row' justifyContent='space-between'>
                 <ButtonList>
                     <Button variant="contained" color="primary" onClick={downloadOverlay}>Download</Button>
-                    <Button variant="outlined" color="primary" onClick={showApiCallPopover}>Copy API call</Button>
+                    <Button variant="outlined" color="primary" onClick={showApiCallPopover}>Copy link</Button>
                 </ButtonList>
                 <ButtonList>
                     <Button variant="text" color="primary" onClick={() => window.open('https://github.com/djroush/sm-overlay')}>UI Source Code</Button>
-                    <Button variant="text" color="primary" onClick={() => window.open('https://github.com/djroush/sm-overlay-service')}>API Source Code</Button>
+                    <Button variant="text" color="primary" onClick={() => window.open('https://github.com/djroush/sm-overlay-service')}>WS Source Code</Button>
                 </ButtonList>
             </Stack>
         </>
