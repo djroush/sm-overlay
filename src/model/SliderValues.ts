@@ -4,6 +4,7 @@ export type Mark = {
 }
 
 export const themeValues: string[] = ['MARIDIA', 'TOURIAN'];
+export const logoValues: string[] = ['DEFAULT', 'CHOOZO'];
 export const modeValues: string[] = ['FULL', 'FULL COUNTDOWN', 'MAJOR MINOR', 'CHOZO'];
 export const areaValues: string[] = ['VANILLA', 'LIGHT', 'FULL'];
 export const difficultyValues: string[] = ['BASIC', 'EASY', 'MEDIUM', 'HARD', 'HARDEST'];
@@ -17,6 +18,7 @@ const createMarks = (values: string[]): Mark[] => {
 }
 
 export const themeMarks: Mark[] = createMarks(themeValues);
+export const logoMarks: Mark[] = createMarks(logoValues);
 export const modeMarks: Mark[] = createMarks(modeValues);
 export const areaMarks: Mark[] = createMarks(areaValues);
 export const difficultyMarks: Mark[] = createMarks(difficultyValues);

@@ -2,12 +2,12 @@
 import { useDispatch, useSelector } from 'react-redux'
 import React, { useEffect } from 'react';
 import { RootState } from '../redux/state/RootState';
-import { themeValues } from '../model/SliderValues';
+import { logoValues, themeValues } from '../model/SliderValues';
 import SettingsComp, { SettingsProps } from '../components/Settings';
 
 export default function Settings() {
     const { settings } = useSelector((state: RootState) => state)
-    const { theme, mode, area, difficulty, start, morph, escape, bosses} = settings
+    const { theme, logo, mode, area, difficulty, start, morph, escape, bosses} = settings
 
     const dispatch = useDispatch()
 
@@ -17,8 +17,8 @@ export default function Settings() {
     }, [theme]);
 
     useEffect(() => { 
-        dispatch({type:'LOGO/fetch-logo', logo: 'default'})
-    }, []);
+        dispatch({type:'LOGO/fetch-logo', logo: logoValues[logo-1]})
+    }, [logo]);
 
     useEffect(() => {
         dispatch({type:'SETTINGS/update-settings'})
@@ -27,6 +27,9 @@ export default function Settings() {
 
     const changeTheme = (_: Event, value: number | number[]) => {
         dispatch({type: 'SETTINGS/change-theme', value })
+    }
+    const changeLogo = (_: Event, value: number | number[]) => {
+        dispatch({type: 'SETTINGS/change-logo', value })
     }
     const changeMode = (_: Event, value: number | number[]) => {
         dispatch({type: 'SETTINGS/change-mode', value })
@@ -52,7 +55,7 @@ export default function Settings() {
 
     const props: SettingsProps = {
         ...settings, 
-        changeTheme, changeMode, changeArea, changeDifficulty, changeStart, changeMorph,
+        changeTheme, changeLogo, changeMode, changeArea, changeDifficulty, changeStart, changeMorph,
         changeBosses, changeEscape
     }
 

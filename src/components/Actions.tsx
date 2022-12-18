@@ -12,7 +12,7 @@ export type ActionsProps = {
 export default function ActionsComp(props: ActionsProps) {
     const { downloadOverlay, showApiCallPopover, hideApiCallPopover, showApiCall} = props
 
-    const ButtonList = styled(Grid)({
+    const ButtonList = styled(Grid)({   
         '& button:not(:last-child)': {
             marginRight: 16
         }

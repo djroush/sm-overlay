@@ -1,11 +1,12 @@
 
 import { Grid } from '@mui/material';
 import SliderSetting from './SliderOption';
-import { themeMarks, modeMarks, areaMarks, difficultyMarks, startMarks, morphMarks, escapeMarks, bossesMarks } from '../model/SliderValues';
+import { themeMarks, modeMarks, areaMarks, difficultyMarks, startMarks, morphMarks, escapeMarks, bossesMarks, logoMarks } from '../model/SliderValues';
 import { SettingsState } from '../redux/state/SettingsState';
 
 export type SettingsProps = SettingsState & {
     changeTheme: (_: Event, value: number | number[]) => void,
+    changeLogo: (_: Event, value: number | number[]) => void,
     changeMode: (_: Event, value: number | number[]) => void,
     changeArea: (_: Event, value: number | number[]) => void,
     changeDifficulty: (_: Event, value: number | number[]) => void,
@@ -16,13 +17,14 @@ export type SettingsProps = SettingsState & {
 }
 
 export default function Settings(props: SettingsProps) {
-    const { theme, mode, area, difficulty, start, morph, bosses, escape,
-        changeTheme, changeMode, changeArea, changeDifficulty, changeStart, changeMorph,
-        changeBosses, changeEscape
+    const { theme, logo, mode, area, difficulty, start, morph, bosses, escape,
+        changeTheme,changeLogo, changeMode, changeArea, changeDifficulty, 
+        changeStart, changeMorph, changeBosses, changeEscape
     } = props
     return (
         <Grid container spacing={1}>
             <SliderSetting label='Theme' value={theme} marks={themeMarks} onChange={changeTheme} />
+            <SliderSetting label='Logo' value={logo} marks={logoMarks} onChange={changeLogo} />
             <SliderSetting label='Mode' value={mode} marks={modeMarks} onChange={changeMode} />
             <SliderSetting label='Area' value={area} marks={areaMarks} onChange={changeArea} />
             <SliderSetting label='Difficulty' value={difficulty} marks={difficultyMarks} onChange={changeDifficulty} />

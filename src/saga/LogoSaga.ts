@@ -5,11 +5,11 @@ const trimEqualsRegExp = new RegExp("=*$");
 
 function* loadLogo(logo: string) {
     //@ts-ignore
-    const img: any = yield call(loadImage, `logos/${logo}.png`)
+    const img: any = yield call(loadImage, `logos/${logo.toLowerCase()}.png`)
     const canvas = createCanvas(1280, 720);
     const context = canvas.getContext('2d')
     
-    context.drawImage(img, 550, 80);
+    context.drawImage(img, 530, 80);
     //converting will export with extra === but when on import they need to be removed,
     //so remove them here before persisting in redux
     const layerData = canvas.toDataURL().replace(trimEqualsRegExp, "");

@@ -3,6 +3,8 @@ import { defaultSettingsState } from "../state/SettingsState";
 export const settingsReducer = (state = defaultSettingsState, action: any) => {
   if (action.type === 'SETTINGS/change-theme') {
     return {...state, theme: action.value}
+  } else if (action.type === 'SETTINGS/change-logo') {
+    return {...state, logo: action.value}
   } else if (action.type === 'SETTINGS/change-mode') {
     return {...state, mode: action.value}
   } else if (action.type === 'SETTINGS/change-area') {

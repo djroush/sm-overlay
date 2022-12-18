@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createCanvas } from 'canvas';
 import { RootState } from '../redux/state/RootState';
 import ActionsComp from '../components/Actions';
-import { areaValues, bossesValues, difficultyValues, escapeValues, modeValues, morphValues, startValues, themeValues } from '../model/SliderValues';
+import { areaValues, bossesValues, difficultyValues, escapeValues, logoValues, modeValues, morphValues, startValues, themeValues } from '../model/SliderValues';
 
 export default function Actions() {
     const { settings, options, names, actions } = useSelector((state: RootState) => state)
     const {hidePlayers, hideLogo, hideSettings, hideTracker, hideAvatar, hideWins} = options
-    const {theme, mode, area, difficulty, start, morph, bosses, escape} = settings
+    const {theme, logo, mode, area, difficulty, start, morph, bosses, escape} = settings
     const {player1, player2} = names
 
     const dispatch = useDispatch()
@@ -16,33 +16,31 @@ export default function Actions() {
     const getApiUrl = () => {
         const { hidePlayers, hideLogo, hideSettings, hideWins, hideAvatar, hideTracker } = options
         const modeValue = modeValues[mode-1].replaceAll(' ', '_')
-        let apiUrl = `https://sm-overlay-service.vercel.app/api/overlay/${themeValues[theme-1]}` +
-            `?mode=${modeValue}` +
+
+        let apiUrl = `https://sm-overlay-service.vercel.app/api/overlay/${themeValues[theme-1]}`;
+        apiUrl += hideLogo ? 
+            '?hideLogo=true' : 
+            `?logo=${logoValues[logo-1]}`;
+
+        apiUrl += hideSettings ? 
+            '&hideSettings=true' : 
+            `&mode=${modeValue}` +
             `&area=${areaValues[area-1]}` +
             `&difficulty=${difficultyValues[difficulty-1]}` +
             `&start=${startValues[start-1]}` +
             `&morph=${morphValues[morph-1]}` +
             `&bosses=${bossesValues[bosses-1]}` +
-            `&escape=${escapeValues[escape-1]}` +
+            `&escape=${escapeValues[escape-1]}`;
+    
+        apiUrl += hidePlayers ? 
+            '&hidePlayers=true' : 
             `&player1=${player1}` +
-            `&player2=${player2}`
-        if (hidePlayers) (
-            apiUrl += '&hidePlayers=true'
-        )
-        if (hideLogo) {
-            apiUrl += '&hideLogo=true'
-        }
-        if (hideSettings) (
-            apiUrl += '&hideSettings=true'
-        )
-        if (hideTracker) {
-            apiUrl += '&hideTracker=true'
-        } if (hideAvatar) (
-            apiUrl += '&hideAvatar=true'
-        )
-        if (hideWins) {
-            apiUrl += '&hideWins=true'
-        }
+            `&player2=${player2}`;
+
+        apiUrl += hideTracker ? '&hideTracker=true' : ''
+        apiUrl += hideAvatar ? '&hideAvatar=true' : ''
+        apiUrl += hideWins ? '&hideWins=true' : ''
+
         return apiUrl.replaceAll(' ', '+')
     }
 
