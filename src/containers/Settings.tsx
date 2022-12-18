@@ -6,8 +6,9 @@ import { logoValues, themeValues } from '../model/SliderValues';
 import SettingsComp, { SettingsProps } from '../components/Settings';
 
 export default function Settings() {
-    const { settings } = useSelector((state: RootState) => state)
+    const { settings, options } = useSelector((state: RootState) => state)
     const { theme, logo, mode, area, difficulty, start, morph, escape, bosses} = settings
+    const { hideLogo, hideSettings} = options
 
     const dispatch = useDispatch()
 
@@ -54,7 +55,7 @@ export default function Settings() {
     }
 
     const props: SettingsProps = {
-        ...settings, 
+        ...settings, hideLogo, hideSettings,
         changeTheme, changeLogo, changeMode, changeArea, changeDifficulty, changeStart, changeMorph,
         changeBosses, changeEscape
     }

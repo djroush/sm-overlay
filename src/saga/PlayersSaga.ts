@@ -1,11 +1,11 @@
 import { CanvasRenderingContext2D, createCanvas } from 'canvas';
 import { delay, put, select, takeLatest, throttle } from 'redux-saga/effects';
 import { RootState } from '../redux/state/RootState';
-import { NamesState } from '../redux/state/PlayersState';
+import { PlayersState } from '../redux/state/PlayersState';
 
 const trimEqualsRegExp = new RegExp("=*$");
 
-function* drawPlayers(names: NamesState) {
+function* drawPlayers(names: PlayersState) {
     const canvas = createCanvas(1280, 720);
     const context: CanvasRenderingContext2D = canvas.getContext('2d')
     context.textAlign = 'center'
@@ -34,8 +34,8 @@ export function* outlineText(context: CanvasRenderingContext2D, text: string, x:
 
 export function* workerPlayers() {
     yield delay(180)
-    const { names } = yield select((state: RootState) => state)
-    yield drawPlayers(names)
+    const { players } = yield select((state: RootState) => state)
+    yield drawPlayers(players)
 }
 
 export default function* watchPlayers() {

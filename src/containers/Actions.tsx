@@ -6,10 +6,10 @@ import ActionsComp from '../components/Actions';
 import { areaValues, bossesValues, difficultyValues, escapeValues, logoValues, modeValues, morphValues, startValues, themeValues } from '../model/SliderValues';
 
 export default function Actions() {
-    const { settings, options, names, actions } = useSelector((state: RootState) => state)
+    const { settings, options, players, actions } = useSelector((state: RootState) => state)
     const {hidePlayers, hideLogo, hideSettings, hideTracker, hideAvatar, hideWins} = options
     const {theme, logo, mode, area, difficulty, start, morph, bosses, escape} = settings
-    const {player1, player2} = names
+    const {player1, player2} = players
 
     const dispatch = useDispatch()
 

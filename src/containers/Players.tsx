@@ -2,11 +2,12 @@
 import { useDispatch, useSelector } from 'react-redux'
 import React, { useEffect } from 'react';
 import { RootState } from '../redux/state/RootState';
-import NamesComp, { PlayersProps } from '../components/Names';
+import NamesComp, { PlayersProps } from '../components/Players';
 
 export default function Players() {
-    const { names } = useSelector((state: RootState) => state)
-    const { player1, player2 } = names
+    const { players, options } = useSelector((state: RootState) => state)
+    const { player1, player2 } = players
+    const { hidePlayers} = options
 
     const dispatch = useDispatch()
 
@@ -22,7 +23,7 @@ export default function Players() {
     }
 
     const props: PlayersProps = {
-        ...names, changePlayer1, changePlayer2
+        ...players, hidePlayers, changePlayer1, changePlayer2
     }
 
     return <NamesComp {...props} />

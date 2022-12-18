@@ -1,15 +1,16 @@
 
 import { Grid, Input, InputLabel } from '@mui/material';
-import { NamesState } from '../redux/state/PlayersState';
+import { PlayersState } from '../redux/state/PlayersState';
 
-export type PlayersProps = NamesState & {
+export type PlayersProps = PlayersState & {
+    hidePlayers: boolean
     changePlayer1: (event: React.ChangeEvent<HTMLInputElement>) => void
     changePlayer2: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export default function PlayersComp(props: PlayersProps) {
-    const { player1, player2, changePlayer1, changePlayer2 } = props
-    return (
+    const { player1, player2, hidePlayers, changePlayer1, changePlayer2 } = props
+    return hidePlayers ? null : (
         <Grid container spacing={1}>
             <Grid item xs={3}>
                 <InputLabel>Player 1 Name</InputLabel>

@@ -1,10 +1,13 @@
-export type OptionsState = {
-  hidePlayers: boolean,
-  hideLogo: boolean,
-  hideSettings: boolean,
+export type OptionsState = OptionsSettingsState & {
   hideWins: boolean,
   hideAvatar: boolean,
   hideTracker: boolean
+  hidePlayers: boolean,
+}
+
+export type OptionsSettingsState = {
+  hideLogo: boolean,
+  hideSettings: boolean,
 }
 
 export const defaultOptionsState: OptionsState = {
@@ -15,3 +18,4 @@ export const defaultOptionsState: OptionsState = {
   hideAvatar: false,
   hideWins: false,
 }
+

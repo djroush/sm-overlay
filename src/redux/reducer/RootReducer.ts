@@ -8,7 +8,7 @@ import { actionsReducer } from './ActionsReducer';
 
 export const rootReducer = combineReducers({
   settings: settingsReducer,
-  names: playersReducer,
+  players: playersReducer,
   options: optionsReducer,
   preview: previewReducer,
   actions: actionsReducer

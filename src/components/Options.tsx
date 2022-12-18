@@ -21,13 +21,13 @@ export default function Options(props: OptionsProps) {
         <Stack id='options'>
             <Grid container spacing={1}>
                 <Grid item xs={4}>
-                    <LabeledCheckbox label='Hide Players' value={hidePlayers ?? false} onChange={changeHidePlayers} />
-                </Grid>
-                <Grid item xs={4}>
                     <LabeledCheckbox label='Hide Logo' value={hideLogo ?? false} onChange={changeHideLogo} />
                 </Grid>
                 <Grid item xs={4}>
                     <LabeledCheckbox label='Hide Settings' value={hideSettings ?? false} onChange={changeHideSettings} />
+                </Grid>
+                <Grid item xs={4}>
+                    <LabeledCheckbox label='Hide Players' value={hidePlayers ?? false} onChange={changeHidePlayers} />
                 </Grid>
             </Grid >
             <Grid container spacing={1}>
