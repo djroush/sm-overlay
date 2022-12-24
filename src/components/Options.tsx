@@ -18,7 +18,7 @@ export default function Options(props: OptionsProps) {
         changeHideAvatar, changeHideWins } = props
 
     return (
-        <Stack id='options'>
+        <Grid container id='options' pr={4}>
             <Grid container spacing={1}>
                 <Grid item xs={4}>
                     <LabeledCheckbox label='Hide Logo' value={hideLogo ?? false} onChange={changeHideLogo} />
@@ -41,6 +41,6 @@ export default function Options(props: OptionsProps) {
                     <LabeledCheckbox label='Hide Wins' value={hideWins ?? false} onChange={changeHideWins} />
                 </Grid>
             </Grid >
-        </Stack>
+        </Grid>
     )
 }

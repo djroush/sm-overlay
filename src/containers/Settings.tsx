@@ -7,8 +7,8 @@ import SettingsComp, { SettingsProps } from '../components/Settings';
 
 export default function Settings() {
     const { settings, options } = useSelector((state: RootState) => state)
-    const { theme, logo, mode, area, difficulty, start, morph, escape, bosses} = settings
-    const { hideLogo, hideSettings} = options
+    const { theme, logo, mode, area, difficulty, start, morph, escape, bosses, avatars} = settings
+    const { hideLogo, hideSettings, hideAvatar} = options
 
     const dispatch = useDispatch()
 
@@ -23,7 +23,7 @@ export default function Settings() {
 
     useEffect(() => {
         dispatch({type:'SETTINGS/update-settings'})
-    }, [mode, area, difficulty, start, morph, escape, bosses])
+    }, [mode, area, difficulty, start, morph, escape, bosses, avatars])
 
 
     const changeTheme = (_: Event, value: number | number[]) => {
@@ -53,11 +53,13 @@ export default function Settings() {
     const changeEscape = (_: Event, value: number | number[]) => {
         dispatch({type: 'SETTINGS/change-escape', value })
     }
-
+    const changeAvatars = (_: Event, value: number | number[]) => {
+        dispatch({type: 'SETTINGS/change-avatars', value })
+    }
     const props: SettingsProps = {
-        ...settings, hideLogo, hideSettings,
+        ...settings, hideLogo, hideSettings,hideAvatar,
         changeTheme, changeLogo, changeMode, changeArea, changeDifficulty, changeStart, changeMorph,
-        changeBosses, changeEscape
+        changeBosses, changeEscape, changeAvatars
     }
 
     return <SettingsComp {...props} />

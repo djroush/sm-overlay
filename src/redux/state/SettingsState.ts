@@ -7,7 +7,8 @@ export type SettingsState = {
   start: number,
   morph: number,
   escape: number,
-  bosses: number
+  bosses: number,
+  avatars: number
 }
 
 export const defaultSettingsState: SettingsState = {
@@ -20,4 +21,5 @@ export const defaultSettingsState: SettingsState = {
   morph: 1,
   escape: 1,
   bosses: 1,
+  avatars: 1
 }

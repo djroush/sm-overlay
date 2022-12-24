@@ -1,7 +1,7 @@
 
 import { Grid } from '@mui/material';
 import SliderSetting from './SliderOption';
-import { themeMarks, modeMarks, areaMarks, difficultyMarks, startMarks, morphMarks, escapeMarks, bossesMarks, logoMarks } from '../model/SliderValues';
+import { themeMarks, modeMarks, areaMarks, difficultyMarks, startMarks, morphMarks, escapeMarks, bossesMarks, logoMarks, avatarsMarks } from '../model/SliderValues';
 import { SettingsState } from '../redux/state/SettingsState';
 import { OptionsSettingsState } from '../redux/state/OptionsState';
 
@@ -15,13 +15,14 @@ export type SettingsProps = SettingsState & OptionsSettingsState & {
     changeMorph: (_: Event, value: number | number[]) => void,
     changeBosses: (_: Event, value: number | number[]) => void,
     changeEscape: (_: Event, value: number | number[]) => void,
+    changeAvatars: (_: Event, value: number | number[]) => void,
 }
 
 export default function Settings(props: SettingsProps) {
-    const { theme, logo, mode, area, difficulty, start, morph, bosses, escape,
-        hideLogo, hideSettings,
+    const { theme, logo, mode, area, difficulty, start, morph, bosses, escape, avatars,
+        hideLogo, hideSettings, hideAvatar,
         changeTheme,changeLogo, changeMode, changeArea, changeDifficulty, 
-        changeStart, changeMorph, changeBosses, changeEscape
+        changeStart, changeMorph, changeBosses, changeEscape, changeAvatars
     } = props
     return (
         <Grid container spacing={1}>
@@ -38,6 +39,9 @@ export default function Settings(props: SettingsProps) {
                 <SliderSetting label='Bosses' value={bosses} marks={bossesMarks} onChange={changeBosses} />
                 <SliderSetting label='Escape' value={escape} marks={escapeMarks} onChange={changeEscape} />
             </>)}
+            {hideAvatar ? null : (
+                <SliderSetting label='Avatars' value={avatars} marks={avatarsMarks} onChange={changeAvatars} />
+            )}
         </Grid>
     )
 }

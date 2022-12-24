@@ -3,15 +3,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createCanvas } from 'canvas';
 import { RootState } from '../redux/state/RootState';
 import ActionsComp from '../components/Actions';
-import { areaValues, bossesValues, difficultyValues, escapeValues, logoValues, modeValues, morphValues, startValues, themeValues } from '../model/SliderValues';
+import { areaValues, avatarsValues, bossesValues, difficultyValues, escapeValues, logoValues, modeValues, morphValues, startValues, themeValues } from '../model/SliderValues';
 
 export default function Actions() {
     const { settings, options, players, actions } = useSelector((state: RootState) => state)
     const {hidePlayers, hideLogo, hideSettings, hideTracker, hideAvatar, hideWins} = options
-    const {theme, logo, mode, area, difficulty, start, morph, bosses, escape} = settings
+    const {theme, logo, mode, area, difficulty, start, morph, bosses, escape, avatars} = settings
     const {player1, player2} = players
 
     const dispatch = useDispatch()
+
+    const emptyAvatars = avatarsValues[avatars-1] === 'EMPTY'
+
 
     const getApiUrl = () => {
         const { hidePlayers, hideLogo, hideSettings, hideWins, hideAvatar, hideTracker } = options
@@ -21,6 +24,9 @@ export default function Actions() {
         apiUrl += hideLogo ? 
             '?hideLogo=true' : 
             `?logo=${logoValues[logo-1]}`;
+
+        apiUrl += hideAvatar ? '&hideAvatar=true' : 
+            `&avatars=${avatarsValues[avatars-1]}`
 
         apiUrl += hideSettings ? 
             '&hideSettings=true' : 
@@ -38,7 +44,6 @@ export default function Actions() {
             `&player2=${player2}`;
 
         apiUrl += hideTracker ? '&hideTracker=true' : ''
-        apiUrl += hideAvatar ? '&hideAvatar=true' : ''
         apiUrl += hideWins ? '&hideWins=true' : ''
 
         return apiUrl.replaceAll(' ', '+')
@@ -53,6 +58,7 @@ export default function Actions() {
         const trackersCanvas = document.getElementById('trackers');
         const avatarsCanvas = document.getElementById('avatars');
         const winsCanvas = document.getElementById('wins');
+        const playerAvatarsCanvas = document.getElementById('playerAvatars')
         const playersCanvas = document.getElementById('players');
         const settingsCanvas = document.getElementById('settings');
 
@@ -76,6 +82,10 @@ export default function Actions() {
         if (!hideWins) {
             context.drawImage(winsCanvas, 0, 0);
         }
+        if (!hideAvatar && !emptyAvatars) {
+            context.drawImage(playerAvatarsCanvas, 0, 0);
+        }
+
         if (!hidePlayers) {
             context.drawImage(playersCanvas, 0, 0);
         }

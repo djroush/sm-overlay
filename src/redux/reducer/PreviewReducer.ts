@@ -17,6 +17,8 @@ export const previewReducer = (state = defaultPreviewState, action: any) => {
     return {...state, avatars: action.value}
   } else if (action.type === 'PREVIEW/persist-wins') {
     return {...state, wins: action.value}
+  } else if (action.type === 'PREVIEW/persist-player-avatars') {
+    return {...state, playerAvatars: action.value}
   } else if (action.type === 'PREVIEW/persist-players') {
     return {...state, players: action.value}
   } else if (action.type === 'PREVIEW/persist-logo') {
@@ -26,8 +28,8 @@ export const previewReducer = (state = defaultPreviewState, action: any) => {
   } else if (action.type === 'PREVIEW/clear-theme') {
     return {
       ...state,
-      background: null, streams: null, names: null, timers: null,
-      trackers: null, avatars: null, wins: null, settings: null
+      background: null, streams: null, names: null, timers: null, trackers: null, 
+      avatars: null, wins: null, playerAvatars: null, settings: null
     }
   }
 

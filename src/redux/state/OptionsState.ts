@@ -1,6 +1,5 @@
 export type OptionsState = OptionsSettingsState & {
   hideWins: boolean,
-  hideAvatar: boolean,
   hideTracker: boolean
   hidePlayers: boolean,
 }
@@ -8,6 +7,7 @@ export type OptionsState = OptionsSettingsState & {
 export type OptionsSettingsState = {
   hideLogo: boolean,
   hideSettings: boolean,
+  hideAvatar: boolean,
 }
 
 export const defaultOptionsState: OptionsState = {

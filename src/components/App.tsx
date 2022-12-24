@@ -13,13 +13,13 @@ export default function App() {
         display: 'table', position: 'relative'
     })
     const BottomBox = styled(Box)({
-        position: 'absolute', minWidth: '100%', bottom: 16
+        position: 'absolute', minWidth: '100%', bottom: 48
     })
 
     return (
-        <Stack spacing={3} padding={2} direction="row">
-            <BoundingBox minWidth={590} maxWidth="25vw"  minHeight="100%">
-               <Stack spacing={2} padding={3}>
+        <Stack spacing={1} padding={2} direction="row" minHeight={720}>
+            <BoundingBox minWidth={590} width="25vw" maxWidth="25vw"  minHeight="100%">
+               <Stack spacing={3} padding={3}>
                     <Settings/>
                     <Names/>
                 </Stack> 
