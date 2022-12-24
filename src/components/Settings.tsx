@@ -30,6 +30,9 @@ export default function Settings(props: SettingsProps) {
             {hideLogo ? null : (
                 <SliderSetting label='Logo' value={logo} marks={logoMarks} onChange={changeLogo} />
             )}
+            {hideAvatar ? null : (
+                <SliderSetting label='Avatars' value={avatars} marks={avatarsMarks} onChange={changeAvatars} />
+            )}
             {hideSettings ? null : (<>
                 <SliderSetting label='Mode' value={mode} marks={modeMarks} onChange={changeMode} />
                 <SliderSetting label='Area' value={area} marks={areaMarks} onChange={changeArea} />
@@ -39,9 +42,6 @@ export default function Settings(props: SettingsProps) {
                 <SliderSetting label='Bosses' value={bosses} marks={bossesMarks} onChange={changeBosses} />
                 <SliderSetting label='Escape' value={escape} marks={escapeMarks} onChange={changeEscape} />
             </>)}
-            {hideAvatar ? null : (
-                <SliderSetting label='Avatars' value={avatars} marks={avatarsMarks} onChange={changeAvatars} />
-            )}
         </Grid>
     )
 }
