@@ -25,7 +25,7 @@ export default function Settings(props: SettingsProps) {
         changeStart, changeMorph, changeBosses, changeEscape, changeAvatars
     } = props
     return (
-        <Grid container spacing={1}>
+        <Grid container spacing={2} columns={8}>
             <SliderSetting label='Theme' value={theme} marks={themeMarks} onChange={changeTheme} />
             {hideLogo ? null : (
                 <SliderSetting label='Logo' value={logo} marks={logoMarks} onChange={changeLogo} />

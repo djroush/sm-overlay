@@ -3,7 +3,7 @@ export type Mark = {
     label: string
 }
 
-export const themeValues: string[] = ['MARIDIA', 'TOURIAN'];
+export const themeValues: string[] = ['BRINSTAR', 'MARIDIA', 'NORFAIR', 'TOURIAN'];
 export const logoValues: string[] = ['DEFAULT', 'CHOOZO'];
 export const modeValues: string[] = ['FULL', 'FULL COUNTDOWN', 'MAJOR MINOR', 'CHOZO'];
 export const areaValues: string[] = ['VANILLA', 'LIGHT', 'FULL'];

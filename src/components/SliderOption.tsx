@@ -15,10 +15,10 @@ export default function SliderSetting(props: SliderSettingProps) {
 
     return (
         <>
-            <Grid item xs={3}>
+            <Grid item xs={2}>
                 <InputLabel>{label}</InputLabel>
             </Grid>
-            <Grid item xs={9}>
+            <Grid item xs={6}>
                 <Box px={4}>
                     <Slider disabled={disabled ?? false} marks={marks} min={1} step={1} max={marks.length} value={value} size='small' onChange={onChange} />
                 </Box>
