@@ -1,9 +1,10 @@
 
 import { Grid } from '@mui/material';
-import SliderSetting from './SliderOption';
+import SliderSetting from './SliderSetting';
 import { themeMarks, modeMarks, areaMarks, difficultyMarks, startMarks, morphMarks, escapeMarks, bossesMarks, logoMarks, avatarsMarks } from '../model/SliderValues';
 import { SettingsState } from '../redux/state/SettingsState';
 import { OptionsSettingsState } from '../redux/state/OptionsState';
+import SliderThemeSetting from './SliderThemeSetting';
 
 export type SettingsProps = SettingsState & OptionsSettingsState & {
     changeTheme: (_: Event, value: number | number[]) => void,
@@ -26,7 +27,8 @@ export default function Settings(props: SettingsProps) {
     } = props
     return (
         <Grid container spacing={2} columns={8}>
-            <SliderSetting label='Theme' value={theme} marks={themeMarks} onChange={changeTheme} />
+            {/*<SliderSetting label='ThemeOrig' value={theme} marks={themeMarks} onChange={changeTheme} />*/}
+            <SliderThemeSetting label='Theme' value={theme} marks={themeMarks} onChange={changeTheme} />
             {hideLogo ? null : (
                 <SliderSetting label='Logo' value={logo} marks={logoMarks} onChange={changeLogo} />
             )}

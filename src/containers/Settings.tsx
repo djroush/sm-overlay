@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { RootState } from '../redux/state/RootState';
 import { logoValues, themeValues } from '../model/SliderValues';
 import SettingsComp, { SettingsProps } from '../components/Settings';
+import { getThemeSliderIndex, roundThemeSlider } from '../components/SliderThemeSetting';
 
 export default function Settings() {
     const { settings, options } = useSelector((state: RootState) => state)
@@ -12,9 +13,13 @@ export default function Settings() {
 
     const dispatch = useDispatch()
 
+
     useEffect(() => {
-        dispatch({type:'PREVIEW/clear-theme'})
-        dispatch({type:'THEME/fetch-theme', theme: themeValues[theme-1]});
+        if (theme !== undefined && theme !== null) {
+            dispatch({type:'PREVIEW/clear-theme'})
+            const value = getThemeSliderIndex(theme)
+            dispatch({type:'THEME/fetch-theme', theme: themeValues[value-1]});    
+        }
     }, [theme]);
 
     useEffect(() => { 
@@ -25,9 +30,11 @@ export default function Settings() {
         dispatch({type:'SETTINGS/update-settings'})
     }, [mode, area, difficulty, start, morph, escape, bosses, avatars])
 
-
     const changeTheme = (_: Event, value: number | number[]) => {
-        dispatch({type: 'SETTINGS/change-theme', value })
+
+        let inputVal: number = Array.isArray(value) ? value[0] : value
+        const roundedVal = roundThemeSlider(inputVal)
+        dispatch({type: 'SETTINGS/change-theme', value: roundedVal })
     }
     const changeLogo = (_: Event, value: number | number[]) => {
         dispatch({type: 'SETTINGS/change-logo', value })

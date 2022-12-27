@@ -4,6 +4,7 @@ import { createCanvas } from 'canvas';
 import { RootState } from '../redux/state/RootState';
 import ActionsComp from '../components/Actions';
 import { areaValues, avatarsValues, bossesValues, difficultyValues, escapeValues, logoValues, modeValues, morphValues, startValues, themeValues } from '../model/SliderValues';
+import { getThemeSliderIndex } from '../components/SliderThemeSetting';
 
 export default function Actions() {
     const { settings, options, players, actions } = useSelector((state: RootState) => state)
@@ -20,7 +21,11 @@ export default function Actions() {
         const { hidePlayers, hideLogo, hideSettings, hideWins, hideAvatar, hideTracker } = options
         const modeValue = modeValues[mode-1].replaceAll(' ', '_')
 
-        let apiUrl = `https://sm-overlay-service.vercel.app/api/overlay/${themeValues[theme-1]}`;
+        //FIXME: need to transform themeValues here!
+        const themeIndex = getThemeSliderIndex(theme)
+        const themeValue = themeValues[themeIndex-1]    
+
+        let apiUrl = `https://sm-overlay-service.vercel.app/api/overlay/${themeValue}`;
         apiUrl += hideLogo ? 
             '?hideLogo=true' : 
             `?logo=${logoValues[logo-1]}`;
