@@ -11,7 +11,7 @@ export type SliderSettingProps = {
 }
 
 // Space is tight, so line up the marks based on the width of the text, don't change the order of themeValues or this will break!
-export const themeSliderValues = [0,49,107,151,192,247,303]
+export const themeSliderValues = [0,49,108,153,195,248,303]
 export const createThemeMarks = (values: string[]): Mark[] => {
     return values.map((label, index) => { return { value: themeSliderValues[index], label } })
 }
@@ -21,9 +21,9 @@ export const getThemeSliderIndex = (val: number) => {
         return 1;
     } else if (val < 78) {
         return 2;
-    } else if (val < 129) {
+    } else if (val < 130) {
         return 3;
-    } else if (val < 172) {
+    } else if (val < 174) {
         return 4;
     } else if (val < 220) {
         return 5;
@@ -41,14 +41,14 @@ export const roundThemeSlider = (val: number) => {
         return 0;
     } else if (val < 78) {
         return 49;
-    } else if (val < 129) {
-        return 107;
-    } else if (val < 172) {
-        return 151;
+    } else if (val < 130) {
+        return 108;
+    } else if (val < 174) {
+        return 153;
     } else if (val < 220) {
-        return 192;
+        return 195;
     } else if (val < 275) {
-        return 247;
+        return 248;
     } else if (val < 304) {
         return 303;
     } else {
