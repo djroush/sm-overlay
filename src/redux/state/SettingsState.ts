@@ -1,5 +1,6 @@
 export type SettingsState = {
   theme: number,
+  themeSlider: number,
   logo: number,
   mode: number,
   area: number,
@@ -12,14 +13,15 @@ export type SettingsState = {
 }
 
 export const defaultSettingsState: SettingsState = {
-  theme: 1,
-  logo: 1,
-  mode: 1,
-  area: 1,
-  difficulty: 1,
-  start: 1,
-  morph: 1,
-  escape: 1,
-  bosses: 1,
-  avatars: 1
+  theme: 0,
+  themeSlider: 0,
+  logo: 0,
+  mode: 0,
+  area: 0,
+  difficulty: 0,
+  start: 0,
+  morph: 0,
+  escape: 0,
+  bosses: 0,
+  avatars: 0
 }

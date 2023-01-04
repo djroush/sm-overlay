@@ -16,48 +16,28 @@ export const createThemeMarks = (values: string[]): Mark[] => {
     return values.map((label, index) => { return { value: themeSliderValues[index], label } })
 }
 
-export const getThemeSliderIndex = (val: number) => {
-    if (val < 25) {
-        return 1;
-    } else if (val < 78) {
-        return 2;
-    } else if (val < 130) {
-        return 3;
-    } else if (val < 174) {
-        return 4;
-    } else if (val < 220) {
-        return 5;
-    } else if (val < 275) {
-        return 6;
-    } else if (val < 304) {
-        return 7;
-    } else {
-        return -1
-    }
-}
-
 export const roundThemeSlider = (val: number) => {
     if (val < 25) {
-        return 0;
+        return {theme: 0, themeSlider: themeSliderValues[0]};
     } else if (val < 78) {
-        return 49;
+        return {theme: 1, themeSlider: themeSliderValues[1]};
     } else if (val < 130) {
-        return 108;
+        return {theme: 2, themeSlider: themeSliderValues[2]};
     } else if (val < 174) {
-        return 153;
+        return {theme: 3, themeSlider: themeSliderValues[3]};
     } else if (val < 220) {
-        return 195;
+        return {theme: 4, themeSlider: themeSliderValues[4]};
     } else if (val < 275) {
-        return 248;
+        return {theme: 5, themeSlider: themeSliderValues[5]};
     } else if (val < 304) {
-        return 303;
+        return {theme: 6, themeSlider: themeSliderValues[6]};
     } else {
-        return -1
+        return {theme: -1, themeSlider: -1};
     }
 }
 
-
-export default function SliderSetting(props: SliderSettingProps) {
+//TODO: make this a generic non-linear slider which can be parameterized
+export default function SliderThemeSetting(props: SliderSettingProps) {
     const { disabled, label, value, marks, onChange } = { ...props }
 
     return (

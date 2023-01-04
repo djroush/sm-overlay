@@ -17,7 +17,7 @@ export const escapeValues: string[] = ['VANILLA', 'RANDOM'];
 export const avatarsValues: string[] = ['DEFAULT', 'EMPTY'];
 
 const createMarks = (values: string[]): Mark[] => {
-    return values.map((label, index) => { return { value: index + 1, label } })
+    return values.map((label, index) => { return { value: index, label } })
 }
 
 export const themeMarks: Mark[] = createThemeMarks(themeValues);

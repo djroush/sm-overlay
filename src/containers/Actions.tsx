@@ -4,7 +4,6 @@ import { createCanvas } from 'canvas';
 import { RootState } from '../redux/state/RootState';
 import ActionsComp from '../components/Actions';
 import { areaValues, avatarsValues, bossesValues, difficultyValues, escapeValues, logoValues, modeValues, morphValues, startValues, themeValues } from '../model/SliderValues';
-import { getThemeSliderIndex } from '../components/SliderThemeSetting';
 
 export default function Actions() {
     const { settings, options, players, actions } = useSelector((state: RootState) => state)
@@ -14,34 +13,32 @@ export default function Actions() {
 
     const dispatch = useDispatch()
 
-    const emptyAvatars = avatarsValues[avatars-1] === 'EMPTY'
+    const emptyAvatars = avatarsValues[avatars] === 'EMPTY'
 
 
     const getApiUrl = () => {
         const { hidePlayers, hideLogo, hideSettings, hideWins, hideAvatar, hideTracker } = options
-        const modeValue = modeValues[mode-1].replaceAll(' ', '_')
+        const modeValue = modeValues[mode].replaceAll(' ', '_')
 
-        //FIXME: need to transform themeValues here!
-        const themeIndex = getThemeSliderIndex(theme)
-        const themeValue = themeValues[themeIndex-1]    
+        const themeValue = themeValues[theme]    
 
         let apiUrl = `https://sm-overlay-service.vercel.app/api/overlay/${themeValue}`;
         apiUrl += hideLogo ? 
             '?hideLogo=true' : 
-            `?logo=${logoValues[logo-1]}`;
+            `?logo=${logoValues[logo]}`;
 
         apiUrl += hideAvatar ? '&hideAvatar=true' : 
-            `&avatars=${avatarsValues[avatars-1]}`
+            `&avatars=${avatarsValues[avatars]}`
 
         apiUrl += hideSettings ? 
             '&hideSettings=true' : 
             `&mode=${modeValue}` +
-            `&area=${areaValues[area-1]}` +
-            `&difficulty=${difficultyValues[difficulty-1]}` +
-            `&start=${startValues[start-1]}` +
-            `&morph=${morphValues[morph-1]}` +
-            `&bosses=${bossesValues[bosses-1]}` +
-            `&escape=${escapeValues[escape-1]}`;
+            `&area=${areaValues[area]}` +
+            `&difficulty=${difficultyValues[difficulty]}` +
+            `&start=${startValues[start]}` +
+            `&morph=${morphValues[morph]}` +
+            `&bosses=${bossesValues[bosses]}` +
+            `&escape=${escapeValues[escape]}`;
     
         apiUrl += hidePlayers ? 
             '&hidePlayers=true' : 

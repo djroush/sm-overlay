@@ -20,15 +20,14 @@ export type SettingsProps = SettingsState & OptionsSettingsState & {
 }
 
 export default function Settings(props: SettingsProps) {
-    const { theme, logo, mode, area, difficulty, start, morph, bosses, escape, avatars,
+    const { themeSlider, logo, mode, area, difficulty, start, morph, bosses, escape, avatars,
         hideLogo, hideSettings, hideAvatar,
         changeTheme,changeLogo, changeMode, changeArea, changeDifficulty, 
         changeStart, changeMorph, changeBosses, changeEscape, changeAvatars
     } = props
     return (
         <Grid container spacing={2} columns={8}>
-            {/*<SliderSetting label='ThemeOrig' value={theme} marks={themeMarks} onChange={changeTheme} />*/}
-            <SliderThemeSetting label='Theme' value={theme} marks={themeMarks} onChange={changeTheme} />
+            <SliderThemeSetting label='Theme' value={themeSlider} marks={themeMarks} onChange={changeTheme} />
             {hideLogo ? null : (
                 <SliderSetting label='Logo' value={logo} marks={logoMarks} onChange={changeLogo} />
             )}

@@ -4,7 +4,6 @@ import { modeValues, areaValues, difficultyValues, startValues, morphValues, esc
 import { SettingsState } from '../redux/state/SettingsState';
 import { RootState } from '../redux/state/RootState';
 import { outlineText } from './PlayersSaga';
-import { getThemeSliderIndex } from '../components/SliderThemeSetting';
 
 const trimEqualsRegExp = new RegExp("=*$");
 
@@ -20,15 +19,14 @@ function* drawSettings(settings: SettingsState) {
     context.strokeStyle = 'black'
 
     //FIXME: needs to translate themeValues here
-    const themeIndex = getThemeSliderIndex(theme)
-    const themeValue = themeValues[themeIndex-1]
-    const modeValue = modeValues[mode - 1]
-    const areaValue = areaValues[area - 1]
-    const difficultyValue = difficultyValues[difficulty - 1]
-    const startValue = startValues[start - 1]
-    const morphValue = morphValues[morph - 1]
-    const escapeValue = escapeValues[escape - 1]
-    const bossesValue = bossesValues[bosses - 1]
+    const themeValue = themeValues[theme]
+    const modeValue = modeValues[mode]
+    const areaValue = areaValues[area]
+    const difficultyValue = difficultyValues[difficulty]
+    const startValue = startValues[start]
+    const morphValue = morphValues[morph]
+    const escapeValue = escapeValues[escape]
+    const bossesValue = bossesValues[bosses]
 
     const settingsText = [
       `MODE - ${modeValue}`,

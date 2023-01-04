@@ -10,7 +10,7 @@ export default function Preview() {
     const { settings, options, preview } = useSelector((state: RootState) => state)
 
     const { avatars } = settings
-    const emptyAvatars = avatarsValues[avatars-1] === 'EMPTY'
+    const emptyAvatars = avatarsValues[avatars] === 'EMPTY'
 
     const props = { ...preview, ...options, emptyAvatars}
     return <PreviewComp {...props} />
