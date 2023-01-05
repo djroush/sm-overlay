@@ -7,31 +7,28 @@ import { areaValues, avatarsValues, bossesValues, difficultyValues, escapeValues
 
 export default function Actions() {
     const { settings, options, players, actions } = useSelector((state: RootState) => state)
-    const {hidePlayers, hideLogo, hideSettings, hideTracker, hideAvatar, hideWins} = options
+    const {hidePlayers, hideLogo, hideSettings, hideTracker, hideAvatar, hideWins, leftAlignPlayers, logoY, settingsY} = options
     const {theme, logo, mode, area, difficulty, start, morph, bosses, escape, avatars} = settings
     const {player1, player2} = players
+    const emptyAvatars = avatarsValues[avatars] === 'EMPTY'
 
     const dispatch = useDispatch()
 
-    const emptyAvatars = avatarsValues[avatars] === 'EMPTY'
-
-
     const getApiUrl = () => {
-        const { hidePlayers, hideLogo, hideSettings, hideWins, hideAvatar, hideTracker } = options
         const modeValue = modeValues[mode].replaceAll(' ', '_')
 
-        const themeValue = themeValues[theme]    
-
-        let apiUrl = `https://sm-overlay-service.vercel.app/api/overlay/${themeValue}`;
+        let apiUrl = `https://sm-overlay-service.vercel.app/api/overlay/${themeValues[theme]}`;
         apiUrl += hideLogo ? 
             '?hideLogo=true' : 
-            `?logo=${logoValues[logo]}`;
+            `?logoY=${logoY}` + 
+            `&logo=${logoValues[logo]}`;
 
         apiUrl += hideAvatar ? '&hideAvatar=true' : 
             `&avatars=${avatarsValues[avatars]}`
 
         apiUrl += hideSettings ? 
             '&hideSettings=true' : 
+            `&settingsY=${settingsY}` +
             `&mode=${modeValue}` +
             `&area=${areaValues[area]}` +
             `&difficulty=${difficultyValues[difficulty]}` +
@@ -42,6 +39,7 @@ export default function Actions() {
     
         apiUrl += hidePlayers ? 
             '&hidePlayers=true' : 
+            `&leftAlignPlayers=${leftAlignPlayers}` +
             `&player1=${player1}` +
             `&player2=${player2}`;
 
@@ -67,10 +65,6 @@ export default function Actions() {
         const canvas = createCanvas(1280, 720);
         const context = canvas.getContext('2d');
         context.drawImage(backgroundCanvas, 0, 0);
-        if (!hideLogo) {
-            context.drawImage(logoCanvas, 0, 0);
-        }
-
         context.drawImage(streamCanvas, 0, 0);
         context.drawImage(namesCanvas, 0, 0);
         context.drawImage(timersCanvas, 0, 0);
@@ -106,15 +100,15 @@ export default function Actions() {
         link.remove();
     }
 
-    const showApiCallPopover = () => {
+    const showSnackbar = () => {
         navigator.clipboard.writeText(getApiUrl())
-        dispatch({type:'ACTIONS/change-showApiCall', value: true})
+        dispatch({type:'ACTIONS/change-showCopyLink', value: true})
     }
-    const hideApiCallPopover = () => {
-        dispatch({type:'ACTIONS/change-showApiCall', value: false})
+    const hideSnackbar = () => {
+        dispatch({type:'ACTIONS/change-showCopyLink', value: false})
     }
 
-    const { showApiCall } = actions
-    const props = { downloadOverlay, showApiCallPopover, hideApiCallPopover, showApiCall }
+    const { showCopyLink } = actions
+    const props = { downloadOverlay, showSnackbar, hideSnackbar, showCopyLink }
     return <ActionsComp {...props} />
 }

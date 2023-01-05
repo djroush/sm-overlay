@@ -13,6 +13,12 @@ export const optionsReducer = (state = defaultOptionsState, action: any) => {
     return {...state, hideAvatar: action.value}
   } else if (action.type === 'OPTIONS/change-hideWins') {
     return {...state, hideWins: action.value}
+  }  else if (action.type === 'OPTIONS/change-leftAlignPlayers') {
+    return {...state, leftAlignPlayers: action.value}
+  }  else if (action.type === 'OPTIONS/change-logoY') {
+    return {...state, logoY: action.value}
+  }  else if (action.type === 'OPTIONS/change-settingsY') {
+    return {...state, settingsY: action.value}
   } 
 
   return state;

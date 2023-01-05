@@ -13,7 +13,7 @@ export default function App() {
         display: 'table', position: 'relative'
     })
     const BottomBox = styled(Box)({
-        position: 'absolute', minWidth: '100%', bottom: 48
+        position: 'absolute', minWidth: '100%', bottom: 16
     })
 
     return (

@@ -1,4 +1,4 @@
-export type OptionsState = OptionsSettingsState & {
+export type OptionsState = OptionsSettingsState & OptionsAlignmentState & {
   hideWins: boolean,
   hideTracker: boolean
   hidePlayers: boolean,
@@ -10,6 +10,12 @@ export type OptionsSettingsState = {
   hideAvatar: boolean,
 }
 
+export type OptionsAlignmentState = {
+  leftAlignPlayers: boolean,
+  logoY: number,
+  settingsY: number
+}
+
 export const defaultOptionsState: OptionsState = {
   hidePlayers: false,
   hideLogo: false,
@@ -17,5 +23,8 @@ export const defaultOptionsState: OptionsState = {
   hideTracker: false,
   hideAvatar: false,
   hideWins: false,
+  leftAlignPlayers: false,
+  logoY: 80,
+  settingsY: 165
 }
 

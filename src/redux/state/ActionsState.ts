@@ -1,7 +1,7 @@
 export type ActionsState = {
-  showApiCall: boolean
+  showCopyLink: boolean
 }
 
 export const defaultActionsState: ActionsState = {
-  showApiCall: false
+  showCopyLink: false
 }

@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { RootState } from '../redux/state/RootState';
 import { logoValues, themeValues } from '../model/SliderValues';
 import SettingsComp, { SettingsProps } from '../components/Settings';
-import { roundThemeSlider } from '../components/SliderThemeSetting';
+import { WeightedSlider } from '../components/WeightedSliderSetting';
 
 export default function Settings() {
     const { settings, options } = useSelector((state: RootState) => state)
@@ -28,9 +28,9 @@ export default function Settings() {
         dispatch({type:'SETTINGS/update-settings'})
     }, [mode, area, difficulty, start, morph, escape, bosses, avatars])
 
-    const changeTheme = (_: Event, value: number | number[]) => {
-        let inputVal: number = Array.isArray(value) ? value[0] : value
-        const themeState = roundThemeSlider(inputVal)
+    const changeTheme = (_: Event, slider: WeightedSlider) => {
+        const {index, value} = slider
+        const themeState = {theme: index, themeSlider: value}
         dispatch({type: 'SETTINGS/change-theme', value: themeState})
     }
     const changeLogo = (_: Event, value: number | number[]) => {

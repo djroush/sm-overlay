@@ -13,16 +13,20 @@ export type PreviewProps = PreviewState & OptionsState & {
 export default function PreviewComp(props: PreviewProps) {
     const {
         background, logo, streams, names, timers, trackers, avatars, wins, playerAvatars, players, settings,
-        emptyAvatars, hidePlayers, hideLogo, hideSettings, hideTracker, hideAvatar, hideWins
+        emptyAvatars, hidePlayers, hideLogo, hideSettings, hideTracker, hideAvatar, hideWins, logoY, settingsY
     } = props
 
     const CanvasLayer = styled(Box)({
-        position: 'absolute', top: 16
+        position: 'absolute'
+    })
+
+    const PreviewWindow = styled(Box)({
+        position: 'relative'
     })
 
     return (
         <Stack id="canvases" direction="column" spacing={1} minWidth='100%'>
-            <Box height={720} width={1280} >
+            <PreviewWindow height={720} width={1280} >
                 <CanvasLayer zIndex={500}>
                     <Canvas id="background" data={background} />
                 </CanvasLayer>
@@ -62,15 +66,15 @@ export default function PreviewComp(props: PreviewProps) {
                 )}
                 {!hideLogo && background && (
                     <CanvasLayer zIndex={509}>
-                        <Canvas id="logo" data={logo} />
+                        <Canvas id="logo" data={logo} left={530} top={logoY} />
                     </CanvasLayer>
                 )}
                 {!hideSettings && background && (
                     <CanvasLayer zIndex={510}>
-                        <Canvas id="settings" data={settings} />
+                        <Canvas id="settings" data={settings} left={534} top={settingsY}/>
                     </CanvasLayer>
                 )}
-            </Box>
+            </PreviewWindow>
             <Actions/>
         </Stack>
     )

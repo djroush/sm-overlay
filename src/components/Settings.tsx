@@ -4,10 +4,10 @@ import SliderSetting from './SliderSetting';
 import { themeMarks, modeMarks, areaMarks, difficultyMarks, startMarks, morphMarks, escapeMarks, bossesMarks, logoMarks, avatarsMarks } from '../model/SliderValues';
 import { SettingsState } from '../redux/state/SettingsState';
 import { OptionsSettingsState } from '../redux/state/OptionsState';
-import SliderThemeSetting from './SliderThemeSetting';
+import WeightedSliderSetting, { WeightedSlider } from './WeightedSliderSetting';
 
 export type SettingsProps = SettingsState & OptionsSettingsState & {
-    changeTheme: (_: Event, value: number | number[]) => void,
+    changeTheme: (_: Event, weightedSlider: WeightedSlider) => void,
     changeLogo: (_: Event, value: number | number[]) => void,
     changeMode: (_: Event, value: number | number[]) => void,
     changeArea: (_: Event, value: number | number[]) => void,
@@ -27,7 +27,7 @@ export default function Settings(props: SettingsProps) {
     } = props
     return (
         <Grid container spacing={2} columns={8}>
-            <SliderThemeSetting label='Theme' value={themeSlider} marks={themeMarks} onChange={changeTheme} />
+            <WeightedSliderSetting label='Theme' value={themeSlider} marks={themeMarks} onChange={changeTheme} />
             {hideLogo ? null : (
                 <SliderSetting label='Logo' value={logo} marks={logoMarks} onChange={changeLogo} />
             )}

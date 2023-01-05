@@ -12,6 +12,8 @@ export type SliderSettingProps = {
 
 export default function SliderSetting(props: SliderSettingProps) {
     const { disabled, label, value, marks, onChange } = { ...props }
+    const min = marks[0].value
+    const max = marks[marks.length-1].value
 
     return (
         <>
@@ -20,7 +22,7 @@ export default function SliderSetting(props: SliderSettingProps) {
             </Grid>
             <Grid item xs={6}>
                 <Box px={4}>
-                    <Slider disabled={disabled ?? false} marks={marks} min={0} step={1} max={marks.length-1} value={value} size='small' onChange={onChange} />
+                    <Slider disabled={disabled ?? false} marks={marks} min={min} step={1} max={max} value={value} size='small' onChange={onChange} />
                 </Box>
             </Grid>
         </>

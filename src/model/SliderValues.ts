@@ -1,11 +1,11 @@
-import { createThemeMarks } from "../components/SliderThemeSetting";
-
 export type Mark = {
     value: number,
     label: string
 }
 
 export const themeValues: string[] = ['CERES', 'CRATERIA', 'BRINSTAR', 'SHIP', 'MARIDIA', 'NORFAIR',  'TOURIAN'];
+const themeSliderValues = [0,49,108,153,195,248,303]
+
 export const logoValues: string[] = ['DEFAULT', 'CHOOZO'];
 export const modeValues: string[] = ['FULL', 'FULL COUNTDOWN', 'MAJOR MINOR', 'CHOZO'];
 export const areaValues: string[] = ['VANILLA', 'LIGHT', 'FULL'];
@@ -16,6 +16,9 @@ export const bossesValues = ['VANILLA', 'RANDOM'];
 export const escapeValues: string[] = ['VANILLA', 'RANDOM'];
 export const avatarsValues: string[] = ['DEFAULT', 'EMPTY'];
 
+const createThemeMarks = (values: string[]): Mark[] => {
+    return values.map((label, index) => { return { value: themeSliderValues[index], label } })
+}
 const createMarks = (values: string[]): Mark[] => {
     return values.map((label, index) => { return { value: index, label } })
 }

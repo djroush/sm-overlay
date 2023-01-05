@@ -4,13 +4,13 @@ import { styled } from '@mui/system';
 
 export type ActionsProps = {
     downloadOverlay: () => void
-    showApiCallPopover: () => void
-    hideApiCallPopover: () => void
-    showApiCall: boolean
+    showSnackbar: () => void
+    hideSnackbar: () => void
+    showCopyLink: boolean
 }
 
 export default function ActionsComp(props: ActionsProps) {
-    const { downloadOverlay, showApiCallPopover, hideApiCallPopover, showApiCall} = props
+    const { downloadOverlay, showSnackbar, hideSnackbar, showCopyLink} = props
 
     const ButtonList = styled(Grid)({   
         '& button:not(:last-child)': {
@@ -21,9 +21,9 @@ export default function ActionsComp(props: ActionsProps) {
     return (
         <>
             <Snackbar 
-              open={showApiCall} 
+              open={showCopyLink} 
               autoHideDuration={4000}
-              onClose={hideApiCallPopover}
+              onClose={hideSnackbar}
               anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
               transitionDuration={{ enter: 1000, exit: 3000 }}
               TransitionComponent={Fade}
@@ -34,7 +34,7 @@ export default function ActionsComp(props: ActionsProps) {
             <Stack direction='row' justifyContent='space-between'>
                 <ButtonList>
                     <Button variant="contained" color="primary" onClick={downloadOverlay}>Download</Button>
-                    <Button variant="outlined" color="primary" onClick={showApiCallPopover}>Copy link</Button>
+                    <Button variant="outlined" color="primary" onClick={showSnackbar}>Copy link</Button>
                 </ButtonList>
                 <ButtonList>
                     <Button variant="text" color="primary" onClick={() => window.open('https://github.com/djroush/sm-overlay')}>UI Source Code</Button>

@@ -1,25 +1,27 @@
 import { createCanvas, loadImage } from 'canvas';
-import { takeLatest, put, call } from 'redux-saga/effects';
+import { takeLatest, put, call, select, all } from 'redux-saga/effects';
+import { RootState } from '../redux/state/RootState';
 
 const trimEqualsRegExp = new RegExp("=*$");
 
-function* loadLogo(logo: string) {
+function* loadLogo(logo: string, logoY: number) {
     //@ts-ignore
     const img: any = yield call(loadImage, `logos/${logo.toLowerCase()}.png`)
-    const canvas = createCanvas(1280, 720);
+    const canvas = createCanvas(220, 89);
     const context = canvas.getContext('2d')
-    
-    context.drawImage(img, 530, 80);
+    context.drawImage(img, 0, 0)    
     //converting will export with extra === but when on import they need to be removed,
     //so remove them here before persisting in redux
     const layerData = canvas.toDataURL().replace(trimEqualsRegExp, "");
-    context.clearRect(0, 0, 1280, 720)
-    yield put({type: `PREVIEW/persist-logo`, value: layerData })
+    yield all([
+        put({type: 'PREVIEW/persist-logo', value: layerData }),
+    ])
 }
 
 export function* workerLogo(action: any) {
+    const {logoY} = yield select((state: RootState) => state.options)
     const logo = action.logo.toLowerCase()
-    yield loadLogo(logo)
+    yield loadLogo(logo, logoY)
 }
 
 export default function* watchLogo() {

@@ -7,8 +7,8 @@ import { outlineText } from './PlayersSaga';
 
 const trimEqualsRegExp = new RegExp("=*$");
 
-function* drawSettings(settings: SettingsState) {
-    const canvas = createCanvas(1280, 720);
+function* drawSettings(settings: SettingsState, settingsY: number) {
+    const canvas = createCanvas(220, 184);
     const context: CanvasRenderingContext2D = canvas.getContext('2d')
     const { theme, mode, area, difficulty, start, morph, escape, bosses } = settings
 
@@ -37,27 +37,22 @@ function* drawSettings(settings: SettingsState) {
       `BOSSES - ${bossesValue}`,
       `ESCAPE - ${escapeValue}`
     ]
-
-    //Add a space so you don't write over the background on the TOURIAN theme
-    if  (themeValue === 'TOURIAN') {
-        settingsText.splice(2, 0, '');
-    }
-    let settingsHeight = 190;
     yield all(settingsText.map((setting, index) =>
-        call(outlineText, context, setting, 534, settingsHeight + (25*index), 220)
+        call(outlineText, context, setting, 0, (25*(index+1)), canvas.width)
     ));
 
     // // creating an image can end the data URL with trailing equal signs.  these cause
     // // issues when using redrawing later, so remove them before persisting to redux
     const settingsData = canvas.toDataURL().replace(trimEqualsRegExp, "");
-    context.clearRect(0, 0, 1280, 720)
+    context.clearRect(0, 0, canvas.width, canvas.height)
 
     yield put({ type: 'PREVIEW/persist-settings', value: settingsData })
 }
 
 export function* workerSettings() {
-    const { settings } = yield select((state: RootState) => state)
-    yield drawSettings(settings);
+    const { settings, options } = yield select((state: RootState) => state)
+    const { settingsY} = options
+    yield drawSettings(settings, settingsY);
 }
 
 export default function* watchSettings() {
