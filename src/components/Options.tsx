@@ -43,7 +43,7 @@ export default function Options(props: OptionsProps) {
                     <LabeledCheckbox label='Hide Settings' value={hideSettings} onChange={changeHideSettings} />
                 </Grid>
                 <Grid item xs={4}>
-                    <LabeledCheckbox label='Hide Players' value={hidePlayers} onChange={changeHidePlayers} />
+                    <LabeledCheckbox label='Hide Player Names' value={hidePlayers} onChange={changeHidePlayers} />
                 </Grid>
             </Grid >
             <Grid container spacing={1} minHeight={42}>
